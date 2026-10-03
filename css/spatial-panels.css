@@ -245,3 +245,68 @@
 #siteProduction .sp-scroll-panel{
   transition:transform .15s ease-out,border-color .3s,box-shadow .4s;
 }
+
+/* ========================================================================
+   PRODUCTION PAGE · DESKTOP-ONLY REFINED COMPOSITION (≥1025px)
+   Removes outer border, separates panels into independent floating
+   surfaces with generous negative space. FOH+PA dominant, Lighting
+   offset right, Backline lower-left, one subtle overlap (Stage ↔ FOH).
+   ======================================================================== */
+@media(min-width:1025px){
+  #siteProduction{border-top:none}
+
+  #siteProduction .spatial-composition{
+    gap:32px 0;
+    padding:16px 0 64px;
+    min-height:700px;
+  }
+
+  /* FOH + PA — dominant large panel, top-left */
+  #siteProduction .sp-feature{
+    grid-column:1 / span 8;
+    grid-row:1 / span 5;
+  }
+
+  /* Visuals / LED — compact, top-right, pushed down for breathing room */
+  #siteProduction .sp-media-panel{
+    grid-column:9 / span 4;
+    grid-row:1 / span 3;
+    margin-top:54px;
+  }
+
+  /* Stage — subtle overlap with FOH bottom-right edge */
+  #siteProduction .sp-medium-b{
+    grid-column:5 / span 4;
+    grid-row:5 / span 2;
+    margin-top:-38px;
+    z-index:8;
+  }
+
+  /* Lighting — offset to the right, below Visuals */
+  #siteProduction .sp-medium-a{
+    grid-column:8 / span 5;
+    grid-row:5 / span 2;
+    margin-top:34px;
+  }
+
+  /* Small floating label — left side, mid-composition */
+  #siteProduction .sp-float-label{
+    grid-column:1 / span 3;
+    grid-row:6 / span 1;
+    margin-top:28px;
+  }
+
+  /* Backline — lower, slightly left */
+  #siteProduction .sp-cursor-panel{
+    grid-column:1 / span 7;
+    grid-row:8 / span 2;
+    margin-top:22px;
+  }
+
+  /* Production overview — bottom-right */
+  #siteProduction .sp-scroll-panel{
+    grid-column:8 / span 5;
+    grid-row:8 / span 2;
+    margin-top:0;
+  }
+}
