@@ -116,8 +116,7 @@ body.v258-page-details-only.edit-on #wrap canvas{cursor:grab!important}
 /* V259 · PAGE DETAILS ONLY · GREEN ROOM / AUDIO / LIGHTING / VISUALS */
 body:not(.performance-mode) #toolbar,
 body:not(.performance-mode) #layers,
-body:not(.performance-mode) #navControls,
-#pageDetailsEditDock{display:none!important}
+body:not(.performance-mode) #navControls{display:none!important}
 
 body:not(.performance-mode) #editor{
   left:16px!important;top:62px!important;
@@ -151,29 +150,11 @@ body:not(.performance-mode) #editor > #v194SubmenuDetailsEditor{display:block!im
 body.light-mode .v260-page-history-note{color:#667085}
 
 
-/* The live page is the editing surface. Keep movement modular and visible. */
-body.v199-live-details-edit .v199-module-tools{opacity:.82!important}
-body.v199-live-details-edit .v199-live-module:hover .v199-module-tools,
-body.v199-live-details-edit .v199-live-module:has(.v199-live-selected) .v199-module-tools{opacity:1!important}
-body.v199-live-details-edit .v199-module-tools [data-v199-action="drag"]{
-  border-color:rgba(255,106,102,.55)!important;color:#ff6a66!important
-}
-body.v199-live-details-edit .v199-live-module{outline-offset:-1px}
-body.v199-live-details-edit [contenteditable="true"]{min-width:18px}
-body.v199-live-details-edit [contenteditable="true"]:focus{
-  background:rgba(57,217,249,.055)!important;
-  box-shadow:0 0 0 2px rgba(57,217,249,.58)!important
-}
-
 /* Let the chosen glass width be visible in both public preview and live edit. */
 @media(min-width:821px){
   body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit) #v194SubmenuDetailsPanel{
     width:var(--v258-glass-width,98%)!important;
     margin-left:auto!important;margin-right:auto!important
-  }
-  body.v199-live-details-edit #v194SubmenuDetailsPanel{
-    width:min(calc(100% - 468px),var(--v258-glass-width,98%))!important;
-    margin-left:450px!important;margin-right:18px!important
   }
 }
 
@@ -218,23 +199,6 @@ body.v199-live-details-edit [contenteditable="true"]:focus{
 #v262ClearText:hover{border-color:#ff4f6f!important;color:#ffb0bd!important}
 #v262TextHint{display:flex;align-items:center;padding:0 4px;color:#6f7985;font:700 7px/1.35 'IBM Plex Mono',monospace}
 
-/* The live page text itself should behave like normal text editing, not a draggable widget. */
-body.v199-live-details-edit [contenteditable="true"],
-body.v199-live-details-edit [contenteditable="plaintext-only"]{
-  user-select:text!important;-webkit-user-select:text!important;
-  cursor:text!important;caret-color:#39d9f9!important;
-  touch-action:auto!important
-}
-body.v199-live-details-edit .v194-detail-module h3:empty::before{
-  content:'CLICK TO ADD TITLE';color:rgba(255,255,255,.26);font-style:normal
-}
-body.v199-live-details-edit .v194-detail-module .v197-body:empty::before{
-  content:'CLICK TO ADD TEXT';color:rgba(255,255,255,.26);font-style:normal
-}
-body.v199-live-details-edit #v194DetailsHeading:empty::before{
-  content:'CLICK TO ADD PAGE TITLE';color:rgba(255,255,255,.24);font-size:.46em;letter-spacing:.02em
-}
-
 /* Remove duplicate text-entry boxes from the long settings list.
    Text is now edited through the single SELECTED TEXT box above or directly on the page. */
 #v194SubmenuDetailsEditor label:has(#v194PageHeading),
@@ -243,9 +207,6 @@ body.v199-live-details-edit #v194DetailsHeading:empty::before{
 #v194SubmenuDetailsEditor label:has(#v194BlockBody){display:none!important}
 @media(max-width:820px){
   body:not(.performance-mode) #editor{left:8px!important;width:calc(100vw - 16px)!important}
-  body.v199-live-details-edit #v194SubmenuDetailsPanel{
-    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
-  }
 }
 
 
@@ -396,26 +357,12 @@ body:not(.performance-mode) #editor{
   margin-right:52px!important;
 }
 .v261-header-module .v197-body{max-width:100%!important}
-body.v199-live-details-edit #v194DetailsIntro[style*="display: none"]::before{display:none!important}
-
-@media(min-width:821px){
-  body.v199-live-details-edit #v194SubmenuDetailsPanel{
-    width:min(calc(100% - 554px),var(--v258-glass-width,98%))!important;
-    margin-left:536px!important;margin-right:18px!important
-  }
-}
 @media(max-width:980px){
   body:not(.performance-mode) #editor{width:min(470px,calc(100vw - 20px))!important;left:10px!important}
-  body.v199-live-details-edit #v194SubmenuDetailsPanel{
-    width:calc(100% - 500px)!important;margin-left:490px!important
-  }
 }
 @media(max-width:820px){
   body:not(.performance-mode) #editor{
     left:8px!important;top:54px!important;width:calc(100vw - 16px)!important;max-height:calc(100vh - 62px)!important
-  }
-  body.v199-live-details-edit #v194SubmenuDetailsPanel{
-    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
   }
   #v194SubmenuDetailsEditor .perf-page-fields{grid-template-columns:1fr!important}
   #v194SubmenuDetailsEditor .perf-page-field.full,
@@ -506,13 +453,7 @@ body:not(.published-promoter-only) #siteEditBtn{display:none!important}
 .v271-ruled-rows .v197-spec-arrow{color:#cc3c3a!important;font-weight:800!important}
 
 /* In live edit, make the placement of the selected module easier to see. */
-body.v199-live-details-edit .v194-detail-module.v199-live-module{
-  outline:1px dashed rgba(255,255,255,.055);outline-offset:-1px;
-}
 body.v199-live-details-edit .v194-detail-module.v199-live-module:has(.v199-live-selected),
-body.v199-live-details-edit .v194-detail-module.v199-live-selected{
-  outline-color:rgba(57,217,249,.46)!important;
-}
 
 @media(max-width:820px){
   .v194-details-grid{grid-template-columns:1fr!important}
@@ -850,12 +791,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
   min-height:0!important;padding:10px 0!important;border:0!important;background:none!important;box-shadow:none!important;
 }
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
-  min-height:42px!important;padding:9px 0!important;
-}
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider.v199-live-selected{
-  outline:1px dashed rgba(74,215,235,.55)!important;outline-offset:5px;
-}
 
 
 
@@ -1002,11 +937,7 @@ body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-di
 .v194-detail-module.type-sectioncard.v290-card-left{justify-self:start}
 .v194-detail-module.type-sectioncard.v290-card-center{justify-self:center}
 .v194-detail-module.type-sectioncard.v290-card-right{justify-self:end}
-body.v199-live-details-edit .v194-detail-module.type-sectioncard{
-  z-index:1;outline:1px dashed rgba(74,215,235,.40);outline-offset:-5px;
-}
 body.v199-live-details-edit .v194-detail-module.type-sectioncard .v199-module-tools,
-body.v199-live-details-edit .v194-detail-module.type-sectioncard .v290-card-placeholder{pointer-events:auto}
 .v290-card-placeholder{
   position:absolute;left:12px;bottom:10px;z-index:3;padding:5px 7px;border-radius:4px;
   background:rgba(3,7,10,.82);border:1px solid rgba(74,215,235,.32);color:#62d7ea;
@@ -1076,12 +1007,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;
   z-index:0!important;
 }
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card{
-  outline:1px dashed rgba(255,98,91,.55)!important;outline-offset:-5px;
-}
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card .v290-card-placeholder{
-  border-color:rgba(255,98,91,.45);color:#ff8b86;
-}
 @media(max-width:760px){#v194SubmenuDetailsEditor .v292-area-grid{grid-template-columns:1fr 1fr}}
 
 
@@ -1097,18 +1022,12 @@ body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-se
 #v194SubmenuDetailsEditor .v293-member-row small{color:#6e7580;font-size:7px;white-space:nowrap}
 #v194SubmenuDetailsEditor .v293-group-empty{padding:9px;border:1px dashed #2b3037;border-radius:5px;color:#6f7781;font:700 8px/1.4 'IBM Plex Mono',monospace}
 #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{position:absolute!important;left:0;top:0;width:100px;height:80px;min-height:0!important;grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;z-index:0!important;pointer-events:none}
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{outline:1px dashed rgba(139,121,255,.7)!important;outline-offset:-5px}
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card .v290-card-placeholder{border-color:rgba(139,121,255,.55)!important;color:#b6aaff!important;background:rgba(10,8,24,.88)!important}
 #v194SubmenuDetailsPanel .v194-detail-module.v293-group-member{position:relative;z-index:2}
 
 
 
 body.v199-live-details-edit .v289-subheading[contenteditable],
-body.v199-live-details-edit .v289-subtext-row[contenteditable]{cursor:text;outline:none}
 body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
-body.v199-live-details-edit .v289-subtext-row[contenteditable]:hover{background:rgba(54,210,239,.055)}
-body.v199-live-details-edit .v290-card-placeholder{cursor:pointer;pointer-events:auto!important}
-body.v199-live-details-edit .v290-card-placeholder:hover{border-color:rgba(54,210,239,.55)!important;color:#36d2ef!important}
 
 
 
@@ -1194,42 +1113,15 @@ body.v199-live-details-edit .v290-card-placeholder:hover{border-color:rgba(54,21
 
 
 /* V301 — clearer block discovery while editing */
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module{
-  transition:
-    background-color .14s ease,
-    box-shadow .14s ease,
-    outline-color .14s ease,
-    filter .14s ease!important;
-  outline:1px solid transparent;
-  outline-offset:2px;
-}
 
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover{
-  background-color:rgba(255,255,255,.075)!important;
-  outline-color:rgba(255,255,255,.16)!important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.025),
-    0 0 0 4px rgba(255,255,255,.018)!important;
-}
 
 /* Make text/image regions a touch easier to visually locate without washing them out. */
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover img{
-  filter:brightness(1.055);
-}
 
 /* Selected block stays slightly more obvious than hover-only blocks. */
 body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.v199-selected,
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module[data-selected="true"]{
-  background-color:rgba(52,203,232,.035)!important;
-  outline-color:rgba(52,203,232,.38)!important;
-}
 
 /* Divider and card elements get the same easy-to-find hover treatment. */
 body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider:hover,
-body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard:hover{
-  background-color:rgba(255,255,255,.035)!important;
-  outline-color:rgba(255,255,255,.2)!important;
-}
 
 
 
