@@ -376,3 +376,80 @@
     margin-top:0;
   }
 }
+
+/* ========================================================================
+   PRODUCTION PAGE · MOBILE COMPOSITION (≤640px)
+   Full-width vertical stack in reading order. No overlaps, offsets,
+   or floating. FOH+PA first and strongest, then Visuals, Lighting,
+   Stage, Backline, with the label and overview placed naturally.
+   Touch-safe: disables tilt / cursor-follow / depth hover.
+   ======================================================================== */
+@media(max-width:640px){
+  #siteProduction .spatial-composition{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    padding:16px 0 40px;
+    min-height:auto;
+  }
+
+  /* Every panel: full width, no grid placement, no offsets */
+  #siteProduction .spatial-composition .spatial-panel{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    margin:0!important;
+    max-width:100%!important;
+    width:100%!important;
+    transform:none!important;
+    --sp-depth-y:0px!important;
+    --sp-depth-scale:1!important;
+    --sp-tilt-x:0deg!important;
+    --sp-tilt-y:0deg!important;
+  }
+
+  /* Reading order via flex order */
+  #siteProduction .sp-feature      {order:1}
+  #siteProduction .sp-media-panel  {order:2}
+  #siteProduction .sp-medium-a     {order:3}   /* Lighting */
+  #siteProduction .sp-medium-b     {order:4;  z-index:5}  /* Stage */
+  #siteProduction .sp-cursor-panel {order:5}   /* Backline */
+  #siteProduction .sp-float-label  {order:6}
+  #siteProduction .sp-scroll-panel {order:7}   /* Production Overview */
+
+  /* FOH+PA stays visually strongest */
+  #siteProduction .sp-feature{
+    --sp-pad:24px;
+  }
+  #siteProduction .sp-feature .sp-title{
+    font-size:clamp(24px,7vw,32px);
+  }
+
+  /* Comfortable, non-shrunk text on all panels */
+  #siteProduction .spatial-panel .sp-title{
+    font-size:clamp(20px,5.5vw,28px);
+  }
+  #siteProduction .spatial-panel .sp-body{
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  /* Prevent horizontal overflow from any panel content */
+  #siteProduction .spatial-composition .spatial-panel,
+  #siteProduction .spatial-composition .spatial-panel *{
+    max-width:100%;
+    box-sizing:border-box;
+  }
+
+  /* Touch-safe: neutralise all transform-based hover effects */
+  #siteProduction .spatial-panel[data-hover="lift"]:hover,
+  #siteProduction .spatial-panel[data-hover="scale"]:hover,
+  #siteProduction .spatial-panel[data-hover="depth"]:hover,
+  #siteProduction .spatial-panel[data-hover="cursor-follow"]:hover,
+  #siteProduction .spatial-panel[data-hover="tilt"]:hover{
+    transform:none!important;
+    --sp-depth-y:0px!important;
+    --sp-depth-scale:1!important;
+    --sp-tilt-x:0deg!important;
+    --sp-tilt-y:0deg!important;
+  }
+}
