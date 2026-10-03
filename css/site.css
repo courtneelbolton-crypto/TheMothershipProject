@@ -1,0 +1,2042 @@
+/* ========================================================================
+   V257 · FULL EDIT PANEL VISIBILITY
+   Restore editor controls hidden by earlier cleanup passes.
+   Context-sensitive panels may still appear only when the relevant object
+   type is selected, exactly as the editing engine expects.
+   ======================================================================== */
+
+body:not(.performance-mode) #v226ZoneHighlightEditor,
+body:not(.performance-mode) #v170ViewManager,
+body:not(.performance-mode) #v201SmokersAreaBox,
+body:not(.performance-mode) #v180StageGroupBox,
+body:not(.performance-mode) #v178EventEditTools,
+body:not(.performance-mode) #fastFrameBox,
+body:not(.performance-mode) #performanceModeBox,
+body:not(.performance-mode) #venueCalibrationBox,
+body:not(.performance-mode) #stageFrontSubsBox,
+body:not(.performance-mode) #snapFloorBox{
+  display:block!important;
+}
+
+/* Restore structure-builder buttons removed from the simplified editor. */
+body:not(.performance-mode) #createCurvedWall,
+body:not(.performance-mode) #createFenceWall,
+body:not(.performance-mode) #createOctPillar,
+body:not(.performance-mode) #createCeilingBeam,
+body:not(.performance-mode) #tidyLayoutBtn,
+body:not(.performance-mode) #createObjectSquare,
+body:not(.performance-mode) #createObjectTriangle,
+body:not(.performance-mode) #editDelete,
+body:not(.performance-mode) #editDeselect,
+body:not(.performance-mode) #copySelectedTop,
+body:not(.performance-mode) #pasteSelectedTop,
+body:not(.performance-mode) #duplicateSelectedTop,
+body:not(.performance-mode) #copySelected,
+body:not(.performance-mode) #pasteSelected,
+body:not(.performance-mode) #snapFloorWalls{
+  display:block!important;
+}
+
+/* Restore grids/captions that were hidden as whole rows. */
+body:not(.performance-mode) #buildStructureBox .builder-grid:has(#createRoomCloser),
+body:not(.performance-mode) #pointEditBox .builder-grid:has(#closeWallLoop),
+body:not(.performance-mode) #pointEditBox .builder-grid:has(#connectToWall),
+body:not(.performance-mode) #pointEditBox .builder-grid:has(#corner90),
+body:not(.performance-mode) #pointEditBox .builder-grid:has(#arcCutIn),
+body:not(.performance-mode) #pointEditBox .builder-grid:has(#shapeRect),
+body:not(.performance-mode) #snapFloorBox .builder-grid:has(#copySelected),
+body:not(.performance-mode) #snapFloorBox .builder-grid:has(#snapFloorWalls){
+  display:grid!important;
+}
+
+body:not(.performance-mode) #pointEditBox #floorShapePresetCaption,
+body:not(.performance-mode) #buildStructureBox .builder-grid:has(#createBarLeaner) .mini-field{
+  display:block!important;
+}
+
+/* Restore the complete quick-add object library rather than the lighting-only
+   subset left visible by the cleanup build. */
+body:not(.performance-mode) #restoredObjectsBox>.builder-title,
+body:not(.performance-mode) #restoredObjectsBox>.shape-caption,
+body:not(.performance-mode) #restoredObjectsBox>.builder-note{
+  display:block!important;
+}
+body:not(.performance-mode) #restoredObjectsBox>.builder-grid{
+  display:grid!important;
+}
+
+/* All advanced categories start visible in V257. */
+body:not(.performance-mode) #editor.v161-advanced-hidden #phaseBuilder,
+body:not(.performance-mode) #editor.v161-advanced-hidden #restoredObjectsBox,
+body:not(.performance-mode) #editor.v161-advanced-hidden #levelBox,
+body:not(.performance-mode) #editor.v161-advanced-hidden #ledStripBox,
+body:not(.performance-mode) #editor.v161-advanced-hidden #buildStructureBox,
+body:not(.performance-mode) #editor.v161-advanced-hidden #layoutPresetManager,
+body:not(.performance-mode) #editor.v161-advanced-hidden #v88UpdatesBox{
+  display:block!important;
+}
+
+
+
+/* V258 · PAGE DETAILS ONLY */
+body:not(.performance-mode) #editor > *{display:none!important}
+body:not(.performance-mode) #editor > #v254ViewPack,
+body:not(.performance-mode) #editor > .editor-head,
+body:not(.performance-mode) #editor > #v194SubmenuDetailsEditor{display:block!important}
+body:not(.performance-mode) #v172EditorJumps{display:none!important}
+body:not(.performance-mode) #editor{width:min(430px,calc(100vw - 82px))!important}
+body:not(.performance-mode) #v194SubmenuDetailsEditor{margin-top:0!important}
+
+#v194SubmenuDetailsEditor .v258-glass-width-box{
+  grid-column:1/-1;margin:2px 0 12px;padding:10px;
+  border:1px solid rgba(57,217,249,.28);border-radius:6px;background:rgba(57,217,249,.025)
+}
+.v258-glass-width-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;color:#aeb5bf;font:700 8px 'IBM Plex Mono',monospace;letter-spacing:.65px}
+.v258-glass-width-head b{color:var(--cyan);font-size:10px}
+.v258-glass-width-controls{display:grid;grid-template-columns:minmax(0,1fr) 68px 74px;gap:7px;align-items:center}
+#v258GlassWidth{width:100%;accent-color:var(--cyan)}
+#v258GlassWidthNumber{width:100%;height:32px;padding:0 7px;border:1px solid #30343b;border-radius:4px;background:#0c0e12;color:#e6e8ec;font:700 9px 'IBM Plex Mono',monospace;text-align:center}
+#v258GlassWidthNumber:focus{outline:none;border-color:var(--cyan)}
+#v258GlassWidthReset{width:100%}
+
+@media(min-width:821px){
+  body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit) #v194SubmenuDetailsPanel{
+    width:var(--v258-glass-width,98%)!important;margin-left:auto!important;margin-right:auto!important
+  }
+}
+@media(max-width:820px){
+  body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit) #v194SubmenuDetailsPanel{
+    width:calc(100% - 16px)!important;margin-left:8px!important;margin-right:8px!important
+  }
+}
+body.v258-page-details-only.edit-on #wrap canvas{cursor:grab!important}
+
+
+
+/* V259 · PAGE DETAILS ONLY · GREEN ROOM / AUDIO / LIGHTING / VISUALS */
+body:not(.performance-mode) #toolbar,
+body:not(.performance-mode) #layers,
+body:not(.performance-mode) #navControls,
+#pageDetailsEditDock{display:none!important}
+
+body:not(.performance-mode) #editor{
+  left:16px!important;top:62px!important;
+  width:min(430px,calc(100vw - 32px))!important;
+  max-height:calc(100vh - 78px)!important;
+}
+body:not(.performance-mode) #editor > *{display:none!important}
+body:not(.performance-mode) #editor > #v254ViewPack,
+body:not(.performance-mode) #editor > .editor-head,
+body:not(.performance-mode) #editor > #v194SubmenuDetailsEditor{display:block!important}
+
+.v259-page-scope-note{
+  grid-column:1/-1;margin:-2px 0 10px;padding:8px 9px;
+  border:1px solid rgba(255,255,255,.10);border-radius:5px;
+  color:#858e9a;background:rgba(255,255,255,.018);
+  font:700 7.2px/1.45 'IBM Plex Mono',monospace;letter-spacing:.55px
+}
+
+/* V260 · PAGE DETAILS ONLY UNDO / REDO */
+.v260-page-history{
+  display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 0 12px
+}
+.v260-page-history .edit-btn{
+  height:36px;display:flex;align-items:center;justify-content:center;gap:7px
+}
+.v260-page-history .edit-btn b{font-size:14px;font-weight:500;line-height:1}
+.v260-page-history .edit-btn:disabled{opacity:.32;cursor:not-allowed;border-color:#2a2e35;color:#69717d}
+.v260-page-history-note{
+  grid-column:1/-1;margin-top:-1px;color:#747c87;font:700 7.5px/1.35 'IBM Plex Mono',monospace;letter-spacing:.45px
+}
+body.light-mode .v260-page-history-note{color:#667085}
+
+
+/* The live page is the editing surface. Keep movement modular and visible. */
+body.v199-live-details-edit .v199-module-tools{opacity:.82!important}
+body.v199-live-details-edit .v199-live-module:hover .v199-module-tools,
+body.v199-live-details-edit .v199-live-module:has(.v199-live-selected) .v199-module-tools{opacity:1!important}
+body.v199-live-details-edit .v199-module-tools [data-v199-action="drag"]{
+  border-color:rgba(255,106,102,.55)!important;color:#ff6a66!important
+}
+body.v199-live-details-edit .v199-live-module{outline-offset:-1px}
+body.v199-live-details-edit [contenteditable="true"]{min-width:18px}
+body.v199-live-details-edit [contenteditable="true"]:focus{
+  background:rgba(57,217,249,.055)!important;
+  box-shadow:0 0 0 2px rgba(57,217,249,.58)!important
+}
+
+/* Let the chosen glass width be visible in both public preview and live edit. */
+@media(min-width:821px){
+  body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit) #v194SubmenuDetailsPanel{
+    width:var(--v258-glass-width,98%)!important;
+    margin-left:auto!important;margin-right:auto!important
+  }
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:min(calc(100% - 468px),var(--v258-glass-width,98%))!important;
+    margin-left:450px!important;margin-right:18px!important
+  }
+}
+
+/* A calmer, single-purpose page editor. */
+#v194SubmenuDetailsEditor .builder-title{position:sticky;top:-14px;z-index:3;background:var(--panel);padding-top:12px!important}
+#v194SubmenuDetailsEditor .v200-live-toggle{margin-bottom:12px}
+#v194SubmenuDetailsEditor .shape-caption{margin-top:18px!important}
+#v194SubmenuDetailsEditor .builder-note{line-height:1.55}
+#v194SubmenuDetailsEditor #v194ApplyPage,
+#v194SubmenuDetailsEditor #v194ApplyBlock{display:none!important}
+
+/* Page title movement stays snapped to the 12-column header grid. */
+#v194SubmenuDetailsPanel[data-v259-heading-position="left"] #v194DetailsHeading{grid-column:1 / span 8!important;text-align:left!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="left"] #v194DetailsIntro{grid-column:9 / -1!important;text-align:left!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="center"] #v194DetailsHeading{grid-column:3 / span 8!important;text-align:center!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="center"] #v194DetailsIntro{grid-column:4 / span 6!important;text-align:center!important;max-width:none!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="right"] #v194DetailsHeading{grid-column:5 / -1!important;text-align:right!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="right"] #v194DetailsIntro{grid-column:1 / span 4!important;text-align:left!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="full"] #v194DetailsHeading{grid-column:1 / -1!important;text-align:left!important}
+#v194SubmenuDetailsPanel[data-v259-heading-position="full"] #v194DetailsIntro{grid-column:1 / span 7!important;text-align:left!important;max-width:760px!important}
+
+
+/* V262 · SIMPLE SELECTED-TEXT EDITOR */
+.v262-text-editor{
+  position:sticky;top:0;z-index:8;
+  margin:8px 0 10px;padding:10px;
+  border:1px solid rgba(57,217,249,.30);border-radius:7px;
+  background:rgba(10,14,18,.97);box-shadow:0 8px 24px rgba(0,0,0,.22)
+}
+.v262-text-editor-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.v262-text-editor-head span{color:#39d9f9;font:800 8px/1 'IBM Plex Mono',monospace;letter-spacing:1px}
+.v262-text-editor-head small{color:#7c8794;font:700 6.8px/1 'IBM Plex Mono',monospace}
+#v262SelectedText{
+  width:100%;min-height:74px;max-height:180px;resize:vertical;
+  border:1px solid #3a424d;border-radius:5px;background:#080b0f;color:#f3f4f6;
+  padding:9px 10px;font:12px/1.45 Arial,sans-serif;outline:none
+}
+#v262SelectedText:focus{border-color:#39d9f9;box-shadow:0 0 0 2px rgba(57,217,249,.10)}
+#v262SelectedText:disabled{opacity:.45;cursor:not-allowed}
+.v262-text-actions{display:grid;grid-template-columns:1fr 112px;gap:7px;margin-top:7px}
+#v262ClearText{border-color:#5a2d39!important;color:#ff8196!important}
+#v262ClearText:hover{border-color:#ff4f6f!important;color:#ffb0bd!important}
+#v262TextHint{display:flex;align-items:center;padding:0 4px;color:#6f7985;font:700 7px/1.35 'IBM Plex Mono',monospace}
+
+/* The live page text itself should behave like normal text editing, not a draggable widget. */
+body.v199-live-details-edit [contenteditable="true"],
+body.v199-live-details-edit [contenteditable="plaintext-only"]{
+  user-select:text!important;-webkit-user-select:text!important;
+  cursor:text!important;caret-color:#39d9f9!important;
+  touch-action:auto!important
+}
+body.v199-live-details-edit .v194-detail-module h3:empty::before{
+  content:'CLICK TO ADD TITLE';color:rgba(255,255,255,.26);font-style:normal
+}
+body.v199-live-details-edit .v194-detail-module .v197-body:empty::before{
+  content:'CLICK TO ADD TEXT';color:rgba(255,255,255,.26);font-style:normal
+}
+body.v199-live-details-edit #v194DetailsHeading:empty::before{
+  content:'CLICK TO ADD PAGE TITLE';color:rgba(255,255,255,.24);font-size:.46em;letter-spacing:.02em
+}
+
+/* Remove duplicate text-entry boxes from the long settings list.
+   Text is now edited through the single SELECTED TEXT box above or directly on the page. */
+#v194SubmenuDetailsEditor label:has(#v194PageHeading),
+#v194SubmenuDetailsEditor label:has(#v194PageIntro),
+#v194SubmenuDetailsEditor label:has(#v194BlockTitle),
+#v194SubmenuDetailsEditor label:has(#v194BlockBody){display:none!important}
+@media(max-width:820px){
+  body:not(.performance-mode) #editor{left:8px!important;width:calc(100vw - 16px)!important}
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
+  }
+}
+
+
+
+/* ======================================================================
+   V261 · CLEAN PAGE DETAILS EDITOR + 12-COLUMN HEADER MODULES
+   ====================================================================== */
+body:not(.performance-mode) #editor{
+  left:14px!important;
+  top:54px!important;
+  width:min(520px,calc(100vw - 28px))!important;
+  max-height:calc(100vh - 66px)!important;
+  padding:10px 12px 18px!important;
+  background:rgba(8,9,12,.985)!important;
+  border-color:#343943!important;
+  box-shadow:0 18px 70px rgba(0,0,0,.68)!important;
+}
+#v194SubmenuDetailsEditor{
+  border:0!important;
+  background:transparent!important;
+  padding:0!important;
+  margin:0!important;
+}
+#v194SubmenuDetailsEditor .builder-title{
+  top:-10px!important;
+  margin:0 -2px 8px!important;
+  padding:12px 2px 9px!important;
+  background:rgba(8,9,12,.985)!important;
+  border-bottom:1px solid #262b32;
+}
+#v194SubmenuDetailsEditor .builder-title span:first-child{font-size:10px!important;color:#f2f4f7!important}
+#v194SubmenuDetailsEditor .builder-title span:last-child{font-size:7px!important;color:#ff5a58!important}
+#v194SubmenuDetailsEditor .v199-live-selection{
+  margin:0 0 8px!important;padding:8px 9px!important;
+  background:#0e1116!important;border-color:#2d333c!important;
+  font-size:7.5px!important;line-height:1.35!important
+}
+#v194SubmenuDetailsEditor .v200-live-toggle{height:38px!important;margin-bottom:8px!important}
+#v194SubmenuDetailsEditor .v260-page-history{gap:6px;margin-bottom:10px!important}
+#v194SubmenuDetailsEditor .v260-page-history-note,
+#v194SubmenuDetailsEditor .v259-page-scope-note{display:none!important}
+
+#v194SubmenuDetailsEditor .perf-page-fields{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px 10px!important;
+  margin:0!important;
+}
+#v194SubmenuDetailsEditor .perf-page-field{
+  display:flex!important;flex-direction:column!important;gap:5px!important;
+  min-width:0!important;margin:0!important;
+}
+#v194SubmenuDetailsEditor .perf-page-field.full,
+#v194SubmenuDetailsEditor .v258-glass-width-box,
+#v194SubmenuDetailsEditor .v261-section-title{grid-column:1/-1!important}
+#v194SubmenuDetailsEditor .perf-page-field>span,
+#v194SubmenuDetailsEditor .v194-check-field>span{
+  display:block!important;
+  color:#9aa2ae!important;
+  font:700 7.5px/1.15 'IBM Plex Mono',monospace!important;
+  letter-spacing:.55px!important;
+  text-transform:uppercase!important;
+}
+#v194SubmenuDetailsEditor input[type=text],
+#v194SubmenuDetailsEditor input[type=number],
+#v194SubmenuDetailsEditor select,
+#v194SubmenuDetailsEditor textarea{
+  width:100%!important;min-width:0!important;
+  border:1px solid #343a44!important;border-radius:5px!important;
+  background:#11151a!important;color:#eef1f4!important;
+  font:600 9.5px/1.35 'IBM Plex Mono',monospace!important;
+  outline:none!important;
+}
+#v194SubmenuDetailsEditor input[type=text],
+#v194SubmenuDetailsEditor input[type=number],
+#v194SubmenuDetailsEditor select{height:36px!important;padding:0 9px!important}
+#v194SubmenuDetailsEditor textarea{min-height:76px!important;padding:9px!important;resize:vertical!important}
+#v194SubmenuDetailsEditor input:focus,
+#v194SubmenuDetailsEditor select:focus,
+#v194SubmenuDetailsEditor textarea:focus{border-color:#39d9f9!important;box-shadow:0 0 0 2px rgba(57,217,249,.09)!important}
+#v194SubmenuDetailsEditor input[type=color]{
+  width:100%!important;height:36px!important;padding:2px!important;
+  border:1px solid #343a44!important;border-radius:5px!important;background:#11151a!important
+}
+#v194SubmenuDetailsEditor .v194-check{
+  min-height:36px!important;display:flex!important;align-items:center!important;gap:8px!important;
+  padding:0 9px!important;border:1px solid #343a44!important;border-radius:5px!important;background:#11151a!important;
+  color:#d5d9df!important;font:700 8px 'IBM Plex Mono',monospace!important
+}
+#v194SubmenuDetailsEditor .edit-btn.small{min-height:35px!important;font-size:7.5px!important}
+#v194SubmenuDetailsEditor .v258-glass-width-box{
+  margin:0 0 2px!important;padding:9px!important;background:#0e1217!important
+}
+#v194SubmenuDetailsEditor .v258-glass-width-box .builder-note{display:none!important}
+
+.v261-section-title{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;
+  margin:12px 0 0!important;padding:10px 0 7px!important;
+  border-top:1px solid #2c3138!important;border-bottom:1px solid #1e2329!important;
+}
+.v261-section-title span{
+  color:#ff5a58!important;font:800 8px/1 'IBM Plex Mono',monospace!important;letter-spacing:1.1px!important
+}
+.v261-section-title small{
+  color:#69727e!important;font:700 6.8px/1 'IBM Plex Mono',monospace!important;letter-spacing:.45px!important
+}
+.v261-content-title{margin-top:16px!important}
+.v261-header-actions{
+  display:grid;grid-template-columns:190px minmax(0,1fr);gap:9px;align-items:center;
+  margin:10px 0 0;padding:9px;border:1px solid rgba(255,90,88,.25);border-radius:6px;background:rgba(255,90,88,.035)
+}
+.v261-header-actions span{color:#7f8895;font:700 7px/1.35 'IBM Plex Mono',monospace}
+.v261-add-grid{margin-top:9px!important}
+#v194SubmenuDetailsEditor .v261-block-fields{margin-top:9px!important;padding-top:10px!important;border-top:1px solid #22272e!important}
+#v194DetailsStatus{
+  margin-top:10px!important;padding:9px!important;border:1px solid #2b3138!important;border-radius:5px!important;
+  background:#0d1115!important;color:#9ba4af!important;font:700 7.4px/1.4 'IBM Plex Mono',monospace!important
+}
+#v194DetailsStatus + .builder-note{display:none!important}
+#v194SubmenuDetailsEditor.v261-intro-off #v261IntroField,
+#v194SubmenuDetailsEditor.v261-intro-off #v261IntroSizeField,
+#v194SubmenuDetailsEditor.v261-intro-off #v261IntroColourField,
+#v194SubmenuDetailsEditor.v261-intro-off #v261IntroWidthField{display:none!important}
+#v194SubmenuDetailsEditor.v261-block-text #v261PhotoFormatField,
+#v194SubmenuDetailsEditor.v261-block-text #v261PhotoField,
+#v194SubmenuDetailsEditor.v261-block-text #v194PhotoPreviewWrap{display:none!important}
+#v194SubmenuDetailsEditor.v261-block-image #v194BlockTitle,
+#v194SubmenuDetailsEditor.v261-block-image #v194BlockBody{opacity:.55}
+#v194SubmenuDetailsEditor.v261-no-block .v261-block-fields,
+#v194SubmenuDetailsEditor.v261-no-block #v194PhotoPreviewWrap,
+#v194SubmenuDetailsEditor.v261-no-block .v261-block-actions{opacity:.55}
+
+/* Header is a true 12-column modular grid. */
+.v194-details-head{
+  grid-auto-flow:row dense!important;
+  grid-auto-rows:auto!important;
+}
+.v261-header-module{
+  grid-column:span var(--v261-header-span,4)!important;
+  min-height:clamp(150px,13vw,235px)!important;
+  padding:clamp(14px,1.4vw,22px) clamp(8px,.8vw,14px) clamp(24px,2.2vw,38px) 0!important;
+  border-top:1px solid #292929!important;
+  align-self:stretch!important;
+}
+.v261-header-module::after{display:none!important}
+.v261-header-module h3{
+  font-size:min(var(--v197-title-size,28px),32px)!important;
+  margin-right:52px!important;
+}
+.v261-header-module .v197-body{max-width:100%!important}
+body.v199-live-details-edit #v194DetailsIntro[style*="display: none"]::before{display:none!important}
+
+@media(min-width:821px){
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:min(calc(100% - 554px),var(--v258-glass-width,98%))!important;
+    margin-left:536px!important;margin-right:18px!important
+  }
+}
+@media(max-width:980px){
+  body:not(.performance-mode) #editor{width:min(470px,calc(100vw - 20px))!important;left:10px!important}
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 500px)!important;margin-left:490px!important
+  }
+}
+@media(max-width:820px){
+  body:not(.performance-mode) #editor{
+    left:8px!important;top:54px!important;width:calc(100vw - 16px)!important;max-height:calc(100vh - 62px)!important
+  }
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
+  }
+  #v194SubmenuDetailsEditor .perf-page-fields{grid-template-columns:1fr!important}
+  #v194SubmenuDetailsEditor .perf-page-field.full,
+  #v194SubmenuDetailsEditor .v258-glass-width-box,
+  #v194SubmenuDetailsEditor .v261-section-title{grid-column:1!important}
+  .v261-header-actions{grid-template-columns:1fr!important}
+}
+
+
+
+#v194DetailsStatus.v266-applied{border-color:rgba(81,224,109,.52)!important;color:#51e06d!important;background:rgba(81,224,109,.055)!important}
+
+
+
+/* V270 · ALWAYS-AVAILABLE PAGE EDIT / PREVIEW SWITCH */
+#v270ModeSwitch{
+  position:fixed;z-index:2147482500;right:18px;top:58px;
+  display:flex;align-items:center;gap:4px;padding:4px;
+  border:1px solid rgba(255,255,255,.16);border-radius:999px;
+  background:rgba(7,8,10,.90);backdrop-filter:blur(16px);
+  box-shadow:0 12px 38px rgba(0,0,0,.38);pointer-events:auto;
+}
+#v270ModeSwitch button{
+  height:32px;padding:0 13px;border:0;border-radius:999px;
+  background:transparent;color:#969da8;cursor:pointer;
+  font:700 8px 'IBM Plex Mono',monospace;letter-spacing:.75px;white-space:nowrap;
+}
+#v270ModeSwitch button:hover{color:#fff}
+#v270ModeSwitch button.active[data-v270-mode="edit"]{background:#ff2e83;color:#fff}
+#v270ModeSwitch button.active[data-v270-mode="performance"]{background:#39d9f9;color:#061014}
+#v270ModeStatus{
+  display:none;position:fixed;z-index:2147482499;right:18px;top:101px;
+  padding:7px 10px;border:1px solid rgba(81,224,109,.28);border-radius:5px;
+  background:rgba(7,8,10,.88);color:#51e06d;
+  font:700 7.5px 'IBM Plex Mono',monospace;letter-spacing:.55px;pointer-events:none;
+}
+#v270ModeStatus.show{display:block}
+body.published-promoter-only #v270ModeSwitch,
+body.published-promoter-only #v270ModeStatus{display:none!important}
+/* One clear route is enough: hide the older page-header EDIT duplicate. */
+body:not(.published-promoter-only) #siteEditBtn{display:none!important}
+/* Rename/position the editor exit as a secondary convenience action. */
+#v254ViewPack{font-size:8px!important;letter-spacing:.55px!important}
+@media(max-width:700px){
+  #v270ModeSwitch{right:8px;top:54px}
+  #v270ModeSwitch button{padding:0 10px}
+}
+
+
+
+/* V271 · FLEXIBLE EDITORIAL PAGE DETAILS GRID
+   One consistent 12-column placement system for header + content modules. */
+#v194SubmenuDetailsEditor label:has(#v194PageColumns){display:none!important}
+#v194SubmenuDetailsEditor .v271-placement-note{
+  grid-column:1/-1;padding:8px 9px;border:1px solid #2a3038;border-radius:5px;
+  background:#0c0f13;color:#8f98a5;font:7.5px/1.5 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor .v271-placement-note b{color:#ff625f}
+#v194SubmenuDetailsEditor .v271-quick-place{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;grid-column:1/-1}
+#v194SubmenuDetailsEditor .v271-quick-place .edit-btn{height:33px!important}
+
+/* Content now uses the same twelve-column language as the header. */
+.v194-details-grid{
+  --v194-cols:12!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
+  column-gap:clamp(10px,1vw,18px)!important;
+  align-items:start!important;
+}
+.v194-details-head{grid-auto-flow:row!important}
+
+/* Explicit placement wins over the older span rules. */
+.v194-detail-module.v271-grid-module{min-width:0!important}
+.v194-detail-module.v271-grid-module[data-v271-row="auto"]{grid-row:auto!important}
+.v194-detail-module.v271-grid-module.type-image{min-height:0!important}
+.v194-detail-module.v271-grid-module.type-image img{width:100%!important;height:auto!important;min-height:0!important;object-fit:cover!important}
+.v261-header-module.v271-grid-module{min-height:0!important}
+.v261-header-module.v271-grid-module.type-image{padding-bottom:0!important}
+.v261-header-module.v271-grid-module.type-image img{margin:0!important}
+
+/* Ruled arrow rows: same visual language as Key Features / reference screenshot. */
+.v271-ruled-rows .v197-spec-list{margin-top:8px!important;border-bottom:1px solid #242424!important}
+.v271-ruled-rows .v197-spec-row{
+  min-height:34px!important;padding:8px 6px 8px 0!important;
+  border-top:1px solid #252525!important;grid-template-columns:20px minmax(0,1fr)!important;
+}
+.v271-ruled-rows .v197-spec-row:first-child{border-top:1px solid #252525!important}
+.v271-ruled-rows .v197-spec-arrow{color:#cc3c3a!important;font-weight:800!important}
+
+/* In live edit, make the placement of the selected module easier to see. */
+body.v199-live-details-edit .v194-detail-module.v199-live-module{
+  outline:1px dashed rgba(255,255,255,.055);outline-offset:-1px;
+}
+body.v199-live-details-edit .v194-detail-module.v199-live-module:has(.v199-live-selected),
+body.v199-live-details-edit .v194-detail-module.v199-live-selected{
+  outline-color:rgba(57,217,249,.46)!important;
+}
+
+@media(max-width:820px){
+  .v194-details-grid{grid-template-columns:1fr!important}
+  .v194-detail-module.v271-grid-module,
+  .v261-header-module.v271-grid-module{grid-column:1!important;grid-row:auto!important}
+}
+
+
+
+/* V274 · Scroll sheet top control can now genuinely override the legacy !important margin. */
+#v272PanelTop,#v272PanelTopNumber{accent-color:#cc3c3a}
+
+
+@media(min-width:721px){#siteNav{width:380px!important;max-width:calc(100vw - 44px)!important;background:linear-gradient(145deg,rgba(11,12,16,0.800),rgba(11,12,16,0.720) 58%,rgba(11,12,16,0.800))!important}#siteNav .site-nav-link{font-size:22px!important;color:#f6f6f4!important}#siteNav .site-nav-link::before{color:#f6f6f4!important}#siteNav .site-nav-link.active{color:#ff514f!important;box-shadow:inset 3px 0 0 #ff514f!important}#siteNav .site-nav-link.active::before{color:#ff514f!important}body.v168-nav-compact.v168-nav-expanded #siteNav{width:380px!important}body.v168-nav-compact:not(.v168-nav-expanded) #siteNav .site-nav-link.active{color:#f6f6f4!important}}
+
+
+/* V281 — Audio page styled from the attached editorial / glass references.
+   Preview only: editor controls and edit-mode geometry remain untouched. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"]{
+  --v281-line:rgba(255,255,255,.12);
+  --v281-line-soft:rgba(255,255,255,.075);
+  --v281-text:#f0f0ed;
+  --v281-muted:rgba(240,240,237,.66);
+  --v281-panel:rgba(255,255,255,.035);
+  --v281-panel-strong:rgba(255,255,255,.055);
+}
+
+/* Overall page: flatter and more editorial than card-heavy. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-details-head{
+  min-height:78vh;
+  align-content:start;
+  column-gap:28px!important;
+  row-gap:26px!important;
+  padding-top:6px;
+  padding-bottom:56px;
+  border-bottom:1px solid var(--v281-line);
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] #v194DetailsKicker{
+  color:#ff5a54!important;
+  letter-spacing:.22em!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] #v194DetailsHeading{
+  font-size:clamp(78px,8.1vw,138px)!important;
+  line-height:.82!important;
+  letter-spacing:-.068em!important;
+  font-weight:700!important;
+  max-width:5.2ch;
+  margin-top:18px;
+}
+
+/* Show-day notes = the one restrained glass panel in the hero. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_notes"]{
+  padding:24px 24px 22px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025))!important;
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 50px rgba(0,0,0,.16);
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_notes"]::after{display:none!important}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_notes"] h3{
+  font-size:clamp(24px,2vw,34px)!important;
+  margin-bottom:16px!important;
+  padding-bottom:14px!important;
+  border-bottom:1px solid var(--v281-line);
+}
+
+/* Hero image: clean, square-edged editorial image under the notes. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_photo"]{
+  padding:0!important;
+  border-top:1px solid var(--v281-line)!important;
+  background:none!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_photo"]::after{display:none!important}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_header_photo"] img{
+  width:100%!important;
+  margin:20px 0 0!important;
+  border:0!important;
+  aspect-ratio:16/10!important;
+  object-fit:cover!important;
+  filter:grayscale(1) contrast(1.08) brightness(.9);
+}
+
+/* Main information grid — thin-rule editorial sections, not boxes. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-details-grid{
+  gap:0 28px!important;
+  padding-top:0;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-detail-module{
+  min-height:260px;
+  padding:28px 0 44px!important;
+  background:none!important;
+  border:0!important;
+  border-top:1px solid var(--v281-line)!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-detail-module::after{display:none!important}
+
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-detail-module h3{
+  margin:0 0 18px!important;
+  padding:0!important;
+  font-size:clamp(25px,2.15vw,38px)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-detail-module h3::before{
+  color:#ff5a54!important;
+  font-size:.56em!important;
+  vertical-align:.18em;
+  margin-right:10px!important;
+}
+
+/* List rows: crisp technical lines like the reference layouts. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v197-spec-list{
+  margin-top:0!important;
+  border:0!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v197-spec-row{
+  display:grid!important;
+  grid-template-columns:18px minmax(0,1fr)!important;
+  gap:8px!important;
+  min-height:0!important;
+  padding:11px 0 12px!important;
+  border-top:1px solid var(--v281-line-soft)!important;
+  color:var(--v281-muted)!important;
+  font-size:clamp(13px,1vw,15px)!important;
+  line-height:1.22!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v197-spec-row:last-child{border-bottom:1px solid var(--v281-line-soft)!important}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v197-spec-arrow{
+  color:#ff5a54!important;
+  padding-top:0!important;
+}
+
+/* Two visual modules become editorial image bands, inspired by the People / Featured Projects refs. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"],
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"]{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.55fr) minmax(190px,.7fr)!important;
+  grid-template-rows:auto 1fr!important;
+  gap:0 24px!important;
+  align-items:start!important;
+  min-height:410px;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] img,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] img{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  height:100%!important;
+  min-height:340px!important;
+  margin:0!important;
+  border:0!important;
+  object-fit:cover!important;
+  filter:grayscale(1) contrast(1.07) brightness(.92);
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] h3,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] h3,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] .v197-body,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] .v197-body{
+  grid-column:2!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] .v197-body,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] .v197-body{
+  color:var(--v281-muted)!important;
+  line-height:1.35!important;
+  font-size:14px!important;
+}
+
+/* Give the final pair a slightly stronger, almost pricing-card finish. */
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_recording_video"],
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_soundcheck_notes"]{
+  margin-top:18px;
+  padding:26px 24px 28px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:20px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+@media(max-width:980px){
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-details-head{min-height:0}
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"],
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"]{
+    grid-template-columns:1fr!important;
+    min-height:0;
+  }
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] img,
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] img,
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] h3,
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] h3,
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_stage"] .v197-body,
+  body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] article[data-block-id="audio_photo_ramp"] .v197-body{grid-column:1!important;grid-row:auto!important}
+}
+
+
+
+#v194SubmenuDetailsEditor .v282-add-row{
+  width:100%;margin-top:8px;min-height:38px;
+  border:1px dashed rgba(74,215,235,.48)!important;
+  color:#66e3f3!important;background:rgba(74,215,235,.045)!important;
+  letter-spacing:.11em;font-weight:800;
+}
+#v194SubmenuDetailsEditor .v282-add-row:hover{background:rgba(74,215,235,.10)!important}
+
+
+
+#v283BlockHeight{font-variant-numeric:tabular-nums}
+#v283BlockHeight::placeholder{color:#777}
+
+
+
+/* V284 — optional underline formatting */
+#v194SubmenuDetailsPanel .v194-detail-module.v284-title-underline h3{
+  text-decoration:underline!important;
+  text-underline-offset:.14em;
+  text-decoration-thickness:.06em;
+  text-decoration-skip-ink:auto;
+}
+#v194SubmenuDetailsPanel .v194-detail-module.v284-body-underline .v197-body,
+#v194SubmenuDetailsPanel .v194-detail-module.v284-body-underline .v265-bullet-text,
+#v194SubmenuDetailsPanel .v194-detail-module.v284-body-underline .v197-spec-row > span:last-child{
+  text-decoration:underline!important;
+  text-underline-offset:.14em;
+  text-decoration-thickness:.055em;
+  text-decoration-skip-ink:auto;
+}
+
+
+
+/* V285 — image with ruled rows beside it */
+#v194SubmenuDetailsEditor:not(.v261-block-mixed) #v285RowsBesideImageField,
+#v194SubmenuDetailsEditor:not(.v261-block-mixed) #v285SideRowActions{display:none!important}
+#v285SideRowActions{display:flex;flex-direction:column;gap:8px}
+#v285SideRowActions .v285-side-row-note{font-size:10px;line-height:1.35;color:#858585;letter-spacing:.3px}
+#v285AddSideRow{width:100%;justify-content:center}
+
+.v194-detail-module.type-mixed.v285-side-rows{
+  grid-template-columns:minmax(0,1.45fr) minmax(260px,1fr)!important;
+  grid-template-rows:auto 1fr!important;
+  align-items:stretch!important;
+}
+.v194-detail-module.type-mixed.v285-side-rows > img{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  height:100%!important;
+  min-height:100%!important;
+  object-fit:cover!important;
+}
+.v194-detail-module.type-mixed.v285-side-rows > h3{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:start;
+}
+.v194-detail-module.type-mixed.v285-side-rows > .v197-spec-list{
+  grid-column:2!important;
+  grid-row:2!important;
+  align-self:stretch;
+  margin-top:4px!important;
+}
+.v194-detail-module.type-mixed.v285-side-rows .v197-spec-row{
+  min-height:46px;
+  display:grid;
+  grid-template-columns:18px minmax(0,1fr);
+  align-items:center;
+}
+@media(max-width:820px){
+  .v194-detail-module.type-mixed.v285-side-rows{grid-template-columns:1fr!important}
+  .v194-detail-module.type-mixed.v285-side-rows > img,
+  .v194-detail-module.type-mixed.v285-side-rows > h3,
+  .v194-detail-module.type-mixed.v285-side-rows > .v197-spec-list{grid-column:1!important;grid-row:auto!important}
+  .v194-detail-module.type-mixed.v285-side-rows > img{height:auto!important;min-height:0!important}
+}
+
+
+
+/* V286 — independent vertical stacks inside one grid column */
+.v286-column-stack{
+  display:flex;
+  flex-direction:column;
+  gap:var(--v272-element-gap,28px);
+  align-self:start;
+  min-width:0;
+  width:100%;
+}
+.v286-column-stack > .v194-detail-module{
+  grid-column:1 / -1 !important;
+  grid-row:auto !important;
+  width:100% !important;
+  min-width:0;
+}
+#v286ColumnStackNote{
+  font-size:10px;
+  line-height:1.4;
+  color:#858585;
+  letter-spacing:.3px;
+  margin-top:4px;
+}
+
+
+
+/* V289 — adjustable decorative divider line module */
+#v194SubmenuDetailsEditor .v288-add-divider{
+  width:100%;margin-top:8px;min-height:38px;
+  border:1px dashed rgba(204,60,58,.55)!important;
+  color:#ef6b67!important;background:rgba(204,60,58,.04)!important;
+  letter-spacing:.11em;font-weight:800;
+}
+#v194SubmenuDetailsEditor .v288-add-divider:hover{background:rgba(204,60,58,.10)!important}
+#v194SubmenuDetailsEditor:not(.v288-block-divider) .v288-divider-control{display:none!important}
+#v194SubmenuDetailsEditor.v288-block-divider #v261PhotoFormatField,
+#v194SubmenuDetailsEditor.v288-block-divider #v261PhotoField,
+#v194SubmenuDetailsEditor.v288-block-divider #v194PhotoPreviewWrap,
+#v194SubmenuDetailsEditor.v288-block-divider #v285RowsBesideImageField,
+#v194SubmenuDetailsEditor.v288-block-divider #v285SideRowActions{display:none!important}
+.v194-detail-module.type-divider{
+  min-height:0!important;
+  padding:10px 0!important;
+  background:none!important;
+  border:0!important;
+  align-self:start;
+}
+.v194-detail-module.type-divider::before,
+.v194-detail-module.type-divider::after{display:none!important}
+.v194-detail-module.type-divider .v288-divider-wrap{
+  width:100%;min-height:24px;display:flex;align-items:center;
+}
+.v194-detail-module.type-divider .v288-divider-line{
+  display:block;flex:0 0 auto;border-radius:999px;
+}
+.v194-detail-module.type-divider .v288-align-left{justify-content:flex-start}
+.v194-detail-module.type-divider .v288-align-center{justify-content:center}
+.v194-detail-module.type-divider .v288-align-right{justify-content:flex-end}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
+  min-height:0!important;padding:10px 0!important;border:0!important;background:none!important;box-shadow:none!important;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
+  min-height:42px!important;padding:9px 0!important;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider.v199-live-selected{
+  outline:1px dashed rgba(74,215,235,.55)!important;outline-offset:5px;
+}
+
+
+
+/* V289/V290 — independent list arrows, subheadings, rounded section boxes + standalone section cards */
+#v194SubmenuDetailsEditor .v289-subsections-wrap{
+  display:grid;gap:9px;margin-top:7px;
+}
+#v194SubmenuDetailsEditor .v289-sub-edit{
+  display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:6px;
+  padding:9px;border:1px solid #2d333b;border-radius:6px;background:#0d1014;
+}
+#v194SubmenuDetailsEditor .v289-sub-edit input,
+#v194SubmenuDetailsEditor .v289-sub-edit textarea{
+  width:100%;box-sizing:border-box;border:1px solid #30343b;border-radius:4px;
+  background:#090c10;color:#e6e8ec;padding:7px 8px;font:700 9px/1.35 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor .v289-sub-edit textarea{
+  grid-column:1/-1;min-height:62px;resize:vertical;font-weight:500;
+}
+#v194SubmenuDetailsEditor .v289-sub-remove{
+  width:34px;height:32px;border:1px solid rgba(204,60,58,.45);border-radius:4px;
+  background:rgba(204,60,58,.06);color:#ef6a66;cursor:pointer;font:800 12px 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor .v289-sub-empty{
+  padding:8px 9px;border:1px dashed #2b3037;border-radius:5px;color:#6f7781;
+  font:700 8px/1.45 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor .v289-box-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px;
+}
+#v194SubmenuDetailsEditor .v289-box-grid label{
+  display:grid;gap:5px;color:#878f9b;font:700 7.5px 'IBM Plex Mono',monospace;letter-spacing:.45px;
+}
+#v194SubmenuDetailsEditor .v289-box-grid input{
+  width:100%;height:31px;box-sizing:border-box;border:1px solid #30343b;border-radius:4px;
+  background:#0c0e12;color:#e6e8ec;padding:0 7px;font:700 8px 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor .v289-box-grid input[type="color"]{padding:2px;height:31px}
+
+.v194-detail-module.v289-no-list-arrows .v197-spec-row{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+}
+.v194-detail-module.v289-no-list-arrows .v197-spec-row > .v197-spec-arrow{
+  display:none!important;
+}
+.v194-detail-module.v289-boxed{
+  box-sizing:border-box!important;
+  padding:var(--v289-box-padding,24px)!important;
+  border:var(--v289-box-border-width,1px) solid var(--v289-box-border,#3d3d3d)!important;
+  border-radius:var(--v289-box-radius,32px)!important;
+  background:color-mix(in srgb,var(--v289-box-bg,#0b0b0c) var(--v289-box-opacity,75%),transparent)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 16px 38px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.v194-detail-module.v289-boxed::after{right:var(--v289-box-padding,24px)!important;left:var(--v289-box-padding,24px)!important}
+.v194-detail-module .v289-subsections{
+  position:relative;z-index:2;display:grid;gap:18px;margin:0 0 18px;
+  grid-template-columns:minmax(0,1fr);
+  align-items:start;
+}
+.v194-detail-module .v289-subsections.v332-layout-2{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.v194-detail-module .v289-subsections.v332-layout-3{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.v194-detail-module .v289-subsections.v332-layout-4{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.v194-detail-module .v289-subsections.v332-layout-auto{
+  grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+}
+.v194-detail-module .v289-subsection{
+  min-width:0;
+  align-self:start;
+}
+@media(max-width:760px){
+  .v194-detail-module .v289-subsections.v332-layout-2,
+  .v194-detail-module .v289-subsections.v332-layout-3,
+  .v194-detail-module .v289-subsections.v332-layout-4,
+  .v194-detail-module .v289-subsections.v332-layout-auto{
+    grid-template-columns:minmax(0,1fr);
+  }
+}
+.v194-detail-module .v289-subsection{
+  display:grid;gap:7px;min-width:0;
+}
+.v194-detail-module .v289-subheading{
+  margin:0!important;padding:0 0 7px!important;
+  border:0!important;color:var(--v294-subheading-color,#838380)!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v294-subheading-size,9px)!important;
+  font-weight:700!important;line-height:1.1!important;
+  letter-spacing:1.35px!important;text-transform:uppercase;text-align:left!important;
+}
+.v194-detail-module .v289-subheading::before{display:none!important}
+.v194-detail-module .v289-subtext{
+  display:grid;gap:0;min-width:0;
+}
+.v194-detail-module .v289-subtext .v197-spec-row{
+  width:100%;box-sizing:border-box;
+}
+.v194-detail-module .v289-subtext.v289-plain-subtext{
+  color:var(--v197-color,#bebebb);font-family:Arial,Helvetica,sans-serif;
+  font-size:var(--v197-body-size,15px);line-height:1.35;
+}
+@media(max-width:760px){
+  #v194SubmenuDetailsEditor .v289-box-grid{grid-template-columns:1fr}
+  .v194-detail-module.v289-boxed{--v289-box-radius:22px!important}
+}
+
+/* V290 — standalone section cards / background containers */
+#v194SubmenuDetailsEditor .v290-add-card{
+  width:100%;margin-top:8px;min-height:38px;
+  border:1px dashed rgba(74,215,235,.55)!important;
+  color:#66d9ec!important;background:rgba(74,215,235,.035)!important;
+  letter-spacing:.11em;font-weight:800;
+}
+#v194SubmenuDetailsEditor .v290-add-card:hover{background:rgba(74,215,235,.09)!important}
+#v194SubmenuDetailsEditor:not(.v290-block-sectioncard) .v290-card-only{display:none!important}
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v261PhotoFormatField,
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v261PhotoField,
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v194PhotoPreviewWrap,
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v285RowsBesideImageField,
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v285SideRowActions,
+#v194SubmenuDetailsEditor.v290-block-sectioncard #v289SubsectionsField{display:none!important}
+
+.v194-details-grid > .v194-detail-module:not(.type-sectioncard),
+.v286-column-stack{position:relative;z-index:2}
+.v194-detail-module.type-sectioncard{
+  position:relative;z-index:0;box-sizing:border-box!important;
+  width:var(--v290-card-width,100%);
+  min-height:var(--v290-card-height,220px)!important;
+  padding:0!important;margin:0!important;
+  border:var(--v289-box-border-width,1px) solid color-mix(in srgb,var(--v289-box-border,#3d3d3d) var(--v290-border-opacity,100%),transparent)!important;
+  border-radius:var(--v289-box-radius,30px)!important;
+  background:color-mix(in srgb,var(--v289-box-bg,#0b0b0c) var(--v289-box-opacity,60%),transparent)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+  overflow:hidden;pointer-events:none;
+}
+.v194-detail-module.type-sectioncard::before,
+.v194-detail-module.type-sectioncard::after{display:none!important}
+.v194-detail-module.type-sectioncard.v290-card-left{justify-self:start}
+.v194-detail-module.type-sectioncard.v290-card-center{justify-self:center}
+.v194-detail-module.type-sectioncard.v290-card-right{justify-self:end}
+body.v199-live-details-edit .v194-detail-module.type-sectioncard{
+  z-index:1;outline:1px dashed rgba(74,215,235,.40);outline-offset:-5px;
+}
+body.v199-live-details-edit .v194-detail-module.type-sectioncard .v199-module-tools,
+body.v199-live-details-edit .v194-detail-module.type-sectioncard .v290-card-placeholder{pointer-events:auto}
+.v290-card-placeholder{
+  position:absolute;left:12px;bottom:10px;z-index:3;padding:5px 7px;border-radius:4px;
+  background:rgba(3,7,10,.82);border:1px solid rgba(74,215,235,.32);color:#62d7ea;
+  font:800 7px/1 'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;
+}
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard{
+  padding:0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important;
+}
+
+
+
+/* V291 — clean list separators: one solid line above every row, no bottom/double rule.
+   Arrow visibility is intentionally independent from line visibility. */
+#v194SubmenuDetailsPanel .v197-spec-list,
+#v194SubmenuDetailsPanel .v271-ruled-rows .v197-spec-list,
+#v194SubmenuDetailsPanel .v289-subtext{
+  border-top:0!important;
+  border-bottom:0!important;
+}
+#v194SubmenuDetailsPanel .v197-spec-row,
+#v194SubmenuDetailsPanel .v271-ruled-rows .v197-spec-row,
+#v194SubmenuDetailsPanel .v289-subtext .v197-spec-row{
+  border-top:1px solid rgba(255,255,255,.115)!important;
+  border-right:0!important;
+  border-bottom:0!important;
+  border-left:0!important;
+  border-style:solid!important;
+}
+#v194SubmenuDetailsPanel .v197-spec-row:first-child,
+#v194SubmenuDetailsPanel .v271-ruled-rows .v197-spec-row:first-child,
+#v194SubmenuDetailsPanel .v289-subtext .v197-spec-row:first-child{
+  border-top:1px solid rgba(255,255,255,.115)!important;
+}
+#v194SubmenuDetailsPanel .v197-spec-row:last-child,
+body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v197-spec-row:last-child{
+  border-bottom:0!important;
+}
+/* Hiding orange list arrows must never remove the row rules. */
+#v194SubmenuDetailsPanel .v194-detail-module.v289-no-list-arrows .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module.v289-no-list-arrows .v289-subtext .v197-spec-row{
+  border-top:1px solid rgba(255,255,255,.115)!important;
+  border-bottom:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module.v289-no-list-arrows .v197-spec-arrow{
+  display:none!important;
+}
+
+
+
+/* V292 — section wrappers + free-positioned background area boxes */
+#v194SubmenuDetailsEditor .v292-box-add-grid{margin-top:8px;gap:8px}
+#v194SubmenuDetailsEditor .v292-box-add-grid .v290-add-card{margin-top:0}
+#v194SubmenuDetailsEditor .v292-add-area{border-color:rgba(255,92,88,.55)!important;color:#ff7772!important;background:rgba(255,80,76,.035)!important}
+#v194SubmenuDetailsEditor .v292-add-area:hover{background:rgba(255,80,76,.09)!important}
+#v194SubmenuDetailsEditor .v292-area-only{display:none!important}
+#v194SubmenuDetailsEditor.v290-block-sectioncard.v292-card-area .v292-area-only{display:block!important}
+#v194SubmenuDetailsEditor.v290-block-sectioncard.v292-card-area .v292-grid-only{display:none!important}
+#v194SubmenuDetailsEditor .v292-area-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+#v194SubmenuDetailsPanel .v194-details-grid{position:relative!important;isolation:isolate}
+#v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card{
+  position:absolute!important;
+  left:var(--v292-area-left,0%)!important;
+  top:var(--v292-area-top,0px)!important;
+  width:var(--v292-area-width,100%)!important;
+  height:var(--v292-area-height,320px)!important;
+  min-height:0!important;
+  grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;
+  z-index:0!important;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card{
+  outline:1px dashed rgba(255,98,91,.55)!important;outline-offset:-5px;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card .v290-card-placeholder{
+  border-color:rgba(255,98,91,.45);color:#ff8b86;
+}
+@media(max-width:760px){#v194SubmenuDetailsEditor .v292-area-grid{grid-template-columns:1fr 1fr}}
+
+
+
+#v194SubmenuDetailsEditor .v293-add-group{width:100%;margin-top:8px;min-height:38px;border:1px dashed rgba(123,103,255,.62)!important;color:#aa9cff!important;background:rgba(123,103,255,.035)!important;letter-spacing:.10em;font-weight:800}
+#v194SubmenuDetailsEditor .v293-add-group:hover{background:rgba(123,103,255,.09)!important}
+#v194SubmenuDetailsEditor .v293-group-only{display:none!important}
+#v194SubmenuDetailsEditor.v290-block-sectioncard.v293-card-group .v293-group-only{display:block!important}
+#v194SubmenuDetailsEditor.v290-block-sectioncard.v293-card-group .v292-area-only,#v194SubmenuDetailsEditor.v290-block-sectioncard.v293-card-group .v292-grid-only{display:none!important}
+#v194SubmenuDetailsEditor .v293-group-members{display:grid;gap:6px;margin-top:9px}
+#v194SubmenuDetailsEditor .v293-member-row{display:grid;grid-template-columns:18px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border:1px solid #2d3138;border-radius:5px;background:#0c0e12;color:#d7d9dd;font:700 8px/1.3 'IBM Plex Mono',monospace;letter-spacing:.35px}
+#v194SubmenuDetailsEditor .v293-member-row input{accent-color:#8b79ff}
+#v194SubmenuDetailsEditor .v293-member-row small{color:#6e7580;font-size:7px;white-space:nowrap}
+#v194SubmenuDetailsEditor .v293-group-empty{padding:9px;border:1px dashed #2b3037;border-radius:5px;color:#6f7781;font:700 8px/1.4 'IBM Plex Mono',monospace}
+#v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{position:absolute!important;left:0;top:0;width:100px;height:80px;min-height:0!important;grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;z-index:0!important;pointer-events:none}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{outline:1px dashed rgba(139,121,255,.7)!important;outline-offset:-5px}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card .v290-card-placeholder{border-color:rgba(139,121,255,.55)!important;color:#b6aaff!important;background:rgba(10,8,24,.88)!important}
+#v194SubmenuDetailsPanel .v194-detail-module.v293-group-member{position:relative;z-index:2}
+
+
+
+body.v199-live-details-edit .v289-subheading[contenteditable],
+body.v199-live-details-edit .v289-subtext-row[contenteditable]{cursor:text;outline:none}
+body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
+body.v199-live-details-edit .v289-subtext-row[contenteditable]:hover{background:rgba(54,210,239,.055)}
+body.v199-live-details-edit .v290-card-placeholder{cursor:pointer;pointer-events:auto!important}
+body.v199-live-details-edit .v290-card-placeholder:hover{border-color:rgba(54,210,239,.55)!important;color:#36d2ef!important}
+
+
+
+/* V296 — per-block list row vertical spacing */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row{
+  padding-top:var(--v296-row-pad,10px)!important;
+  padding-bottom:var(--v296-row-pad,10px)!important;
+}
+#v194SubmenuDetailsEditor .v296-group-size-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin-top:9px;
+}
+#v194SubmenuDetailsEditor .v296-group-size-grid label{
+  display:grid;
+  gap:5px;
+  font:700 8px/1.2 'IBM Plex Mono',monospace;
+  color:#8c929b;
+  letter-spacing:.45px;
+}
+
+
+
+#v194SubmenuDetailsEditor .v299-offset-controls{
+  display:grid;
+  grid-template-columns:auto auto minmax(84px,1fr) auto auto;
+  gap:5px;
+  align-items:center;
+  margin-top:6px;
+}
+#v194SubmenuDetailsEditor .v299-offset-controls button,
+#v194SubmenuDetailsEditor .v299-reset-offset{
+  min-height:30px;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.035);
+  color:#d8d8d5;
+  border-radius:7px;
+  font:700 9px/1 'IBM Plex Mono',monospace;
+  cursor:pointer;
+}
+#v194SubmenuDetailsEditor .v299-offset-controls button:hover,
+#v194SubmenuDetailsEditor .v299-reset-offset:hover{background:rgba(255,255,255,.075)}
+#v194SubmenuDetailsEditor .v299-offset-readout{
+  margin-top:7px;
+  font:800 11px/1.2 'IBM Plex Mono',monospace;
+  color:#ff625b;
+  letter-spacing:.4px;
+}
+#v194SubmenuDetailsEditor .v299-reset-offset{
+  margin-top:7px;
+  width:100%;
+}
+
+
+
+/* V300 — live/preview title spacing parity + per-block top line + number styling */
+
+/* Preserve deliberate spaces in titles in BOTH edit and preview modes. */
+#v194SubmenuDetailsPanel #v194DetailsHeading,
+#v194SubmenuDetailsPanel .v194-detail-module h3,
+#v194SubmenuDetailsPanel .v289-subheading{
+  white-space:pre-wrap!important;
+}
+
+/* A block's outer top divider is now independent from list-row divider lines. */
+#v194SubmenuDetailsPanel .v194-detail-module.v300-no-top-line{
+  border-top:0!important;
+}
+
+/* Keep the small automatic 01 / 02 / 03 number consistent between edit + preview. */
+#v194SubmenuDetailsPanel .v194-detail-module:not(.type-sectioncard):not(.v300-hide-number)::after{
+  display:block!important;
+  color:var(--v300-number-color,#4c4c4b)!important;
+  font-size:var(--v300-number-size,7px)!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module.v300-hide-number::after,
+#v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard::after{
+  display:none!important;
+}
+
+
+
+/* V301 — clearer block discovery while editing */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module{
+  transition:
+    background-color .14s ease,
+    box-shadow .14s ease,
+    outline-color .14s ease,
+    filter .14s ease!important;
+  outline:1px solid transparent;
+  outline-offset:2px;
+}
+
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover{
+  background-color:rgba(255,255,255,.075)!important;
+  outline-color:rgba(255,255,255,.16)!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 0 0 4px rgba(255,255,255,.018)!important;
+}
+
+/* Make text/image regions a touch easier to visually locate without washing them out. */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover img{
+  filter:brightness(1.055);
+}
+
+/* Selected block stays slightly more obvious than hover-only blocks. */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.v199-selected,
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module[data-selected="true"]{
+  background-color:rgba(52,203,232,.035)!important;
+  outline-color:rgba(52,203,232,.38)!important;
+}
+
+/* Divider and card elements get the same easy-to-find hover treatment. */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider:hover,
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard:hover{
+  background-color:rgba(255,255,255,.035)!important;
+  outline-color:rgba(255,255,255,.2)!important;
+}
+
+
+
+#v194SubmenuDetailsPanel .v194-detail-module.v303-custom-number::after{
+  content:attr(data-v303-number)!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row + .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row + .v197-spec-row{
+  margin-top:var(--v303-list-gap,0px)!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row span,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext-row{
+  line-height:var(--v303-list-line-height,1.2)!important;
+}
+
+
+
+/* V315 — precise preview hover.
+   The highlight is a separate overlay positioned from the live geometry,
+   rather than the module's sometimes-larger CSS box. */
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel .v194-detail-module.v313-hoverable-content{
+  position:relative!important;
+  z-index:2!important;
+}
+
+/* Real content hover overlay. Always clipped inside a 5px rounded boundary. */
+#v194DetailsGrid .v315-content-hover-overlay{
+  position:absolute!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  box-sizing:border-box!important;
+  border-radius:5px!important;
+  overflow:hidden!important;
+  background:rgba(255,255,255,.075)!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.045)!important;
+  opacity:0;
+  transition:
+    opacity .13s ease,
+    left .06s linear,
+    top .06s linear,
+    width .06s linear,
+    height .06s linear;
+}
+#v194DetailsGrid .v315-content-hover-overlay.v315-active{
+  opacity:1;
+}
+
+/* Never add a fill to images, page/header content, title-only rows,
+   blank spacers, dividers or structural section boxes. */
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel .v194-detail-module:not(.v313-hoverable-content):hover{
+  background:inherit!important;
+  box-shadow:inherit!important;
+  filter:none!important;
+}
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel .v194-detail-module.type-image:hover img,
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel .v194-detail-module.type-mixed:hover img{
+  filter:inherit!important;
+}
+
+/* Large section hover boundary. Border only — never a section fill. */
+#v194DetailsGrid .v313-section-hover-frame{
+  position:absolute;
+  z-index:35;
+  pointer-events:none;
+  box-sizing:border-box!important;
+  border:1px solid transparent!important;
+  border-radius:5px!important;
+  background:transparent!important;
+  opacity:0;
+  transition:border-color .14s ease,opacity .14s ease,box-shadow .14s ease;
+}
+#v194DetailsGrid .v313-section-hover-frame.v313-section-active{
+  opacity:1;
+  border-color:rgba(238,240,244,.78)!important;
+  box-shadow:none!important;
+}
+
+/* Section title changes to venue orange/red. */
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel .v194-detail-module.v313-section-title-active > h3{
+  color:#ff5a54!important;
+  transition:color .14s ease!important;
+}
+
+
+
+/* Safe minimum clearance from divider lines, even when the editor value is 0. */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row{
+  padding-top:max(var(--v296-row-pad,10px),2px)!important;
+  padding-bottom:max(var(--v296-row-pad,10px),2px)!important;
+}
+
+/* Subheading groups: remove the old doubled gap and make it explicitly controllable. */
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subsections{
+  gap:var(--v305-subsection-gap,6px)!important;
+  margin-bottom:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subsection{
+  gap:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subheading{
+  padding-bottom:var(--v305-subheading-text-gap,3px)!important;
+  margin-bottom:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext{
+  margin-top:0!important;
+}
+
+/* Keep compact text readable even at the tightest setting. */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row span,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext-row{
+  line-height:max(var(--v303-list-line-height,1.2),.95)!important;
+}
+
+
+
+/* The old base spec style forced every row to be at least 39px high.
+   V306 finally makes that value editable and defaults it to zero. */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row{
+  min-height:var(--v306-row-min-height,0px)!important;
+}
+
+/* Main title -> first content/subheading gap. */
+#v194SubmenuDetailsPanel .v194-detail-module h3{
+  margin-bottom:var(--v306-title-content-gap,4px)!important;
+}
+
+/* No inherited gap before lists. */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-list{
+  margin-top:0!important;
+}
+
+/* Let rows get extremely compact, but leave 1px clearance so dividers never touch glyphs. */
+#v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row{
+  padding-top:max(var(--v296-row-pad,1px),1px)!important;
+  padding-bottom:max(var(--v296-row-pad,1px),1px)!important;
+}
+
+/* Remove the preview theme's old 260px forced module height from rounded content cards.
+   Explicit BOX HEIGHT still wins because it is an inline !important value. */
+#v194SubmenuDetailsPanel .v194-detail-module.v289-boxed{
+  min-height:0!important;
+}
+
+/* Structured subsection groups (DRUMS / GUITAR / BASS) get no hidden margin. */
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subsections{
+  margin:0!important;
+  padding:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subsection{
+  margin:0!important;
+  padding:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subheading{
+  margin:0!important;
+}
+#v194SubmenuDetailsPanel .v194-detail-module .v289-subtext{
+  margin:0!important;
+  padding:0!important;
+}
+
+/* If a block already uses structured subheadings, the empty live-edit body placeholder
+   must not add a phantom row above them. */
+body.v199-live-details-edit #v194SubmenuDetailsPanel
+.v194-detail-module:has(.v289-subsections) > .v197-body:empty{
+  display:none!important;
+}
+
+
+
+/* V307 — cards should hug their own content, not stretch to the tallest grid item. */
+#v194SubmenuDetailsPanel .v194-details-grid{
+  align-items:start!important;
+}
+#v194SubmenuDetailsPanel .v194-details-grid > .v194-detail-module:not(.type-sectioncard),
+#v194SubmenuDetailsPanel .v286-column-stack > .v194-detail-module:not(.type-sectioncard){
+  align-self:start!important;
+  height:auto!important;
+}
+
+/* Rounded section boxes around normal content blocks must be content-height by default.
+   An explicit BOX HEIGHT / minimum height still works through the inline min-height value. */
+#v194SubmenuDetailsPanel .v194-detail-module.v289-boxed:not(.type-sectioncard){
+  align-self:start!important;
+  height:max-content!important;
+}
+
+/* Column stacks themselves should never fill the row vertically. */
+#v194SubmenuDetailsPanel .v286-column-stack{
+  align-self:start!important;
+  height:max-content!important;
+}
+
+
+
+/* V309 — fixed Page Details design width.
+   When enabled, browser resizing does NOT squeeze the 12-column design. */
+
+body[data-v309-lock-width="1"].v194-submenu-details-active{
+  overflow-x:auto!important;
+  overscroll-behavior-x:auto;
+}
+html:has(body[data-v309-lock-width="1"].v194-submenu-details-active){
+  overflow-x:auto!important;
+}
+
+/* Keep the details sheet wide enough to contain the locked canvas. */
+body[data-v309-lock-width="1"].performance-mode.site-preview.v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"]{
+  width:max(var(--v258-glass-width,98%),calc(var(--v309-preview-canvas-width,1280px) + 96px))!important;
+  min-width:calc(var(--v309-preview-canvas-width,1280px) + 96px)!important;
+  max-width:none!important;
+  margin-left:14px!important;
+  margin-right:14px!important;
+  overflow:visible!important;
+}
+
+/* Edit mode gets the same fixed designed canvas after the editor sidebar. */
+body[data-v309-lock-width="1"].v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"]{
+  width:calc(var(--v309-preview-canvas-width,1280px) + 96px)!important;
+  min-width:calc(var(--v309-preview-canvas-width,1280px) + 96px)!important;
+  max-width:none!important;
+  margin-left:536px!important;
+  margin-right:18px!important;
+  overflow:visible!important;
+}
+
+/* This is the actual design canvas. Its width stays constant while the viewport changes. */
+body[data-v309-lock-width="1"].v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-details-shell{
+  box-sizing:border-box!important;
+  width:var(--v309-preview-canvas-width,1280px)!important;
+  min-width:var(--v309-preview-canvas-width,1280px)!important;
+  max-width:var(--v309-preview-canvas-width,1280px)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Cancel tablet/mobile collapse rules while width-lock is enabled. */
+body[data-v309-lock-width="1"].v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-details-grid{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  --v194-cols:12!important;
+  column-gap:18px!important;
+}
+body[data-v309-lock-width="1"].v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-details-head{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+}
+
+/* Do not let mobile CSS turn blocks into full-width stacked modules. */
+body[data-v309-lock-width="1"].v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-detail-module.v271-grid-module{
+  min-width:0!important;
+}
+
+/* Preserve compact cards at their designed dimensions. */
+body[data-v309-lock-width="1"].v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-detail-module.v289-boxed:not(.type-sectioncard){
+  align-self:start!important;
+  height:max-content!important;
+}
+
+/* The locked canvas should scroll as one desktop composition rather than reflow. */
+@media (max-width:980px){
+  body[data-v309-lock-width="1"].v194-submenu-details-active
+  #v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-details-grid{
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  }
+  body[data-v309-lock-width="1"].v194-submenu-details-active
+  #v194SubmenuDetailsPanel[data-v309-lock-width="1"] .v194-details-shell{
+    width:var(--v309-preview-canvas-width,1280px)!important;
+    min-width:var(--v309-preview-canvas-width,1280px)!important;
+    max-width:var(--v309-preview-canvas-width,1280px)!important;
+  }
+}
+
+
+
+#v194SubmenuDetailsEditor .v311-height-nudges{
+  display:grid;
+  grid-template-columns:auto auto minmax(82px,1fr) auto auto;
+  gap:6px;
+  align-items:center;
+  margin-top:9px;
+}
+#v194SubmenuDetailsEditor .v311-height-nudges button{
+  min-height:31px;
+  padding:0 10px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:7px;
+  background:rgba(255,255,255,.035);
+  color:#d7d9dd;
+  font:800 9px/1 'IBM Plex Mono',monospace;
+  cursor:pointer;
+}
+#v194SubmenuDetailsEditor .v311-height-nudges button:hover{
+  background:rgba(255,255,255,.075);
+}
+#v194SubmenuDetailsEditor .v311-height-nudges strong{
+  min-height:31px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(52,203,232,.28);
+  border-radius:7px;
+  background:rgba(52,203,232,.045);
+  color:#4adbf4;
+  font:800 10px/1 'IBM Plex Mono',monospace;
+}
+
+/* Manual Free Area height is exact. No grid/stretch/min-height rule can enlarge it. */
+#v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card[data-v311-manual-height="1"]{
+  min-height:0!important;
+  max-height:none!important;
+  box-sizing:border-box!important;
+}
+
+
+
+#v194SubmenuDetailsEditor .v312-glass-shift-controls{
+  display:grid;
+  grid-template-columns:auto auto minmax(80px,1fr) auto auto;
+  gap:6px;
+  align-items:center;
+}
+#v194SubmenuDetailsEditor #v312GlassShiftX{
+  height:32px;
+  width:100%;
+  padding:0 8px;
+  border:1px solid #30343b;
+  border-radius:4px;
+  background:#0c0e12;
+  color:#e6e8ec;
+  text-align:center;
+  font:700 9px 'IBM Plex Mono',monospace;
+}
+#v194SubmenuDetailsEditor #v312GlassShiftX:focus{
+  outline:none;
+  border-color:var(--cyan);
+}
+
+/* Move the glass panel itself — never the grid or its children. */
+body.v194-submenu-details-active #v194SubmenuDetailsPanel{
+  transform:translateX(var(--v312-glass-shift-x,0px))!important;
+  transform-origin:center top!important;
+}
+
+/* Center the WHOLE panel on the viewport. This overrides older left-biased margins
+   without changing panel width, canvas width or any child layout. */
+body.performance-mode.site-preview.v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v312-glass-centered="1"],
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v312-glass-centered="1"]{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* When the fixed desktop canvas is wider than the viewport, keep the full sheet
+   scrollable rather than clipping its left side. */
+body[data-v309-lock-width="1"].v194-submenu-details-active{
+  overflow-x:auto!important;
+}
+
+
+
+/* True viewport centering:
+   center the PANEL BORDER BOX itself, irrespective of its fixed width/padding.
+   Internal grid sizes/positions remain untouched. */
+body.performance-mode.site-preview.v194-submenu-details-active
+#v194SubmenuDetailsPanel[data-v312-glass-centered="1"]{
+  position:relative!important;
+  left:50vw!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  transform:translateX(calc(-50% + var(--v312-glass-shift-x,0px)))!important;
+}
+
+/* Same geometry in live edit. The editor may overlap visually, but the venue
+   composition itself remains genuinely centred on the viewport. */
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v312-glass-centered="1"]{
+  position:relative!important;
+  left:50vw!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  transform:translateX(calc(-50% + var(--v312-glass-shift-x,0px)))!important;
+}
+
+/* Non-centred pages still use their normal shift control. */
+body.v194-submenu-details-active
+#v194SubmenuDetailsPanel:not([data-v312-glass-centered="1"]){
+  left:auto!important;
+  transform:translateX(var(--v312-glass-shift-x,0px))!important;
+}
+
+
+
+/* Existing section boxes keep their exact original border thickness.
+   Hover changes colour only — no second stroke is layered on top. */
+#v194DetailsGrid .v194-detail-module.v317-existing-section-border{
+  transition:border-color .14s ease, box-shadow .14s ease!important;
+}
+#v194DetailsGrid .v194-detail-module.v317-existing-section-border.v317-section-border-active{
+  border-color:rgba(238,240,244,.82)!important;
+  box-shadow:none!important;
+}
+
+/* Only the border-less Backline section uses the synthetic hover frame.
+   It remains a single thin 1px stroke. */
+#v194DetailsGrid .v313-section-hover-frame.v317-backline-frame{
+  border-width:1px!important;
+  border-style:solid!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+#v194DetailsGrid .v313-section-hover-frame.v317-backline-frame.v313-section-active{
+  border-color:rgba(238,240,244,.82)!important;
+  box-shadow:none!important;
+}
+
+/* Existing top / Venue Access frames are geometry helpers only; hide their stroke
+   so they don't visually double the section's own border. */
+#v194DetailsGrid .v313-section-hover-frame.v317-existing-border-helper{
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+#v194DetailsGrid .v313-section-hover-frame.v317-existing-border-helper.v313-section-active{
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+
+
+
+/* Keep the live venue background locked to the visible browser viewport,
+   regardless of Chrome's page zoom. This does NOT move the venue camera. */
+body.performance-mode.site-preview #wrap{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  min-width:100vw!important;
+  min-height:100vh!important;
+  max-width:none!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  transform:none!important;
+  transform-origin:center center!important;
+}
+
+body.performance-mode.site-preview #wrap > canvas,
+body.performance-mode.site-preview #wrap canvas{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  min-width:100vw!important;
+  min-height:100vh!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+}
+
+/* Keep the public website layer itself on the viewport rather than allowing
+   an old fixed pixel width to determine its visual size after browser zoom. */
+body.performance-mode.site-preview #promoterSite{
+  width:100vw!important;
+  min-width:100vw!important;
+  max-width:100vw!important;
+}
+
+/* PREVIEW IS READ-ONLY.
+   These are editor artefacts and must never display in promoter Preview. */
+body.performance-mode.site-preview .v199-module-tools,
+body.performance-mode.site-preview .v290-card-placeholder,
+body.performance-mode.site-preview .v199-live-selection,
+body.performance-mode.site-preview #v199LiveSelection{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+body.performance-mode.site-preview .v199-live-module,
+body.performance-mode.site-preview .v199-live-selected,
+body.performance-mode.site-preview .v199-selected,
+body.performance-mode.site-preview [data-selected="true"]{
+  outline:none!important;
+  outline-offset:0!important;
+}
+
+/* Never show editor-only empty-text prompts in Preview. */
+body.performance-mode.site-preview #v194DetailsIntro:empty::before,
+body.performance-mode.site-preview .v197-body:empty::before,
+body.performance-mode.site-preview .v194-detail-module h3:empty::before{
+  display:none!important;
+  content:none!important;
+}
+
+
+
+/* V327 — Audio hero text is real saved data and visible in BOTH modes. */
+#v194SubmenuDetailsEditor .v324-audio-only{display:none!important}
+#v194SubmenuDetailsEditor.v324-audio-page .v324-audio-only{display:flex!important}
+#v194SubmenuDetailsEditor.v324-audio-page .v261-section-title.v324-audio-only{
+  display:flex!important;
+  grid-column:1 / -1!important;
+}
+#v194SubmenuDetailsEditor.v324-audio-page label.v324-audio-only{flex-direction:column}
+#v194SubmenuDetailsEditor.v324-audio-page .v327-audio-nav-title,
+#v194SubmenuDetailsEditor.v324-audio-page .v327-audio-size-title{
+  margin-top:10px!important;
+}
+
+/* ---------------- EDIT MODE ----------------
+   Keep the actual page title + intro visible/editable and add a non-destructive
+   right-side reference panel so the grey copy isn't invisible while editing. */
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-details-head{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  position:relative!important;
+  min-height:0!important;
+  padding-bottom:var(--v330-audio-bottom-space,70px)!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] #v194DetailsKicker{
+  grid-column:1 / span 8!important;
+  grid-row:1!important;
+  color:#ff5a54!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v328-audio-kicker-size,14px)!important;
+  line-height:1.08!important;
+  letter-spacing:.22em!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] #v194DetailsHeading{
+  grid-column:1 / span 8!important;
+  grid-row:2!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] #v194DetailsIntro{
+  display:block!important;
+  grid-column:1 / span 8!important;
+  grid-row:3!important;
+  justify-self:start!important;
+  width:min(100%,var(--v328-audio-intro-width,720px))!important;
+  max-width:var(--v328-audio-intro-width,720px)!important;
+  margin-top:14px!important;
+  color:#d7d7d4!important;
+  min-height:2.4em!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-side{
+  grid-column:9 / span 4!important;
+  grid-row:2 / span 2!important;
+  align-self:start!important;
+  display:grid!important;
+  grid-template-columns:1px minmax(0,1fr)!important;
+  gap:24px!important;
+  margin-top:12px!important;
+  padding:6px 0!important;
+  pointer-events:auto!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-side-line{
+  width:1px!important;
+  min-height:118px!important;
+  background:rgba(255,255,255,.34)!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-nav{
+  display:grid!important;
+  gap:7px!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-nav button{
+  appearance:none!important;
+  border:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:rgba(205,205,205,.55)!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v324-audio-small-size,14px)!important;
+  font-weight:700!important;
+  letter-spacing:.055em!important;
+  line-height:1.15!important;
+  text-align:left!important;
+  text-transform:uppercase!important;
+  cursor:text!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-nav button:hover{
+  color:#f4f4f2!important;
+}
+
+body.v199-live-details-edit
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v327-audio-edit-button{
+  grid-column:1 / span 4!important;
+  grid-row:4!important;
+  justify-self:start!important;
+  margin-top:24px!important;
+  padding:12px 16px!important;
+  border:0!important;
+  background:#ff5a54!important;
+  color:#07080b!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v330-audio-button-text-size,14px)!important;
+  font-weight:700!important;
+  letter-spacing:.09em!important;
+  cursor:text!important;
+
+  transform:scale(var(--v329-audio-button-scale,1))!important;
+  transform-origin:left top!important;
+}
+
+
+/* ---------------- PREVIEW MODE ---------------- */
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v194-details-head.v326-audio-hero-host{
+  display:block!important;
+  position:relative!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:42px 0 var(--v330-audio-bottom-space,70px)!important;
+  border-bottom:1px solid rgba(255,255,255,.12)!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-hero-host > #v194DetailsKicker,
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-hero-host > #v194DetailsHeading,
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-hero-host > #v194DetailsIntro,
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-hero-host > .v261-header-module{
+  display:none!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-display{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(250px,320px)!important;
+  column-gap:var(--v324-audio-column-gap,64px)!important;
+  align-items:start!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-main{
+  min-width:0!important;
+  max-width:880px!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-kicker{
+  margin:0 0 var(--v324-audio-kicker-gap,20px)!important;
+  color:#ff5a54!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v328-audio-kicker-size,14px)!important;
+  line-height:1.05!important;
+  font-weight:700!important;
+  letter-spacing:.26em!important;
+  text-transform:uppercase!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-title{
+  display:block!important;
+  margin:0!important;
+  color:#f4f4f2!important;
+  font-family:'Arial MT Pro',Arial,sans-serif!important;
+  font-size:var(--v324-audio-title-size,188px)!important;
+  line-height:.82!important;
+  letter-spacing:-.066em!important;
+  font-weight:700!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-intro{
+  display:block!important;
+  width:min(100%,var(--v328-audio-intro-width,720px))!important;
+  max-width:var(--v328-audio-intro-width,720px)!important;
+  margin:var(--v324-audio-title-gap,18px) 0 0!important;
+  color:rgba(241,241,239,.74)!important;
+  font-family:'Arial MT Pro',Arial,sans-serif!important;
+  font-size:var(--v324-audio-intro-size,29px)!important;
+  line-height:.96!important;
+  letter-spacing:-.045em!important;
+  font-weight:700!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-download{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:14px!important;
+  margin-top:40px!important;
+  padding:var(--v324-audio-button-pad-y,16px) var(--v324-audio-button-pad-x,22px)!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#ff5a54!important;
+  color:#07080b!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v330-audio-button-text-size,14px)!important;
+  line-height:1!important;
+  font-weight:700!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+  text-decoration:none!important;
+  box-shadow:none!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-download-arrow{
+  font-family:Arial,sans-serif!important;
+  font-size:24px!important;
+  line-height:.75!important;
+  letter-spacing:0!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side{
+  display:grid!important;
+  grid-template-columns:1px minmax(0,1fr)!important;
+  gap:28px!important;
+  align-items:start!important;
+  margin-top:var(--v324-audio-side-top,56px)!important;
+  min-width:0!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side-line{
+  display:block!important;
+  width:1px!important;
+  min-height:126px!important;
+  background:rgba(255,255,255,.44)!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side-nav{
+  display:grid!important;
+  gap:8px!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side-nav button{
+  appearance:none!important;
+  width:auto!important;
+  min-width:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:rgba(205,205,205,.54)!important;
+  font-family:'IBM Plex Mono',monospace!important;
+  font-size:var(--v324-audio-small-size,14px)!important;
+  line-height:1.16!important;
+  font-weight:700!important;
+  letter-spacing:.06em!important;
+  text-align:left!important;
+  text-transform:uppercase!important;
+  cursor:pointer!important;
+}
+
+body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+#v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side-nav button:hover{
+  color:#f4f4f2!important;
+}
+
+@media(max-width:980px){
+  body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+  #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-display{
+    grid-template-columns:1fr!important;
+    row-gap:34px!important;
+  }
+  body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit)
+  #v194SubmenuDetailsPanel[data-v281-page-id="submenu_mtzyx7bz_wcw6"] .v326-audio-side{
+    margin-top:0!important;
+  }
+}
