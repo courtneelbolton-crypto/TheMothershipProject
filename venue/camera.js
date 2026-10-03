@@ -35,8 +35,8 @@ function isSolidPolygonRoot(o){return !!o&&o.userData&&o.userData.builderType===
 function isBarLeanerRoot(o){return !!o&&o.userData&&o.userData.builderType==='barLeaner'}
 function isStaticPointSolid(o){return !!o&&o.userData&&!!o.userData.staticSolidEdit}
 
-function captureEditState(){const state={};staticEditorRoots.forEach(o=>{const t=worldAwareTransformState(o);state[o.userData.editId]={...t,c:extractObjectColour(o),g:o.userData.groupId||'',f:o.userData.surfaceFinish||''}});return state}
-function applyEditState(state){if(!state)return;staticEditorRoots.forEach(o=>{const d=state[o.userData.editId];if(!d)return;o.position.fromArray(d.p);o.rotation.set(d.r[0],d.r[1],d.r[2],d.r[3]||'XYZ');o.scale.fromArray(d.s);o.visible=d.v!==false;o.userData.groupId=d.g||'';noteGroupId(o.userData.groupId);if(d.c)setObjectColour(o,d.c);if(d.f)applySurfaceFinish(o,d.f)});if(selectedEdit&&!selectedEdit.visible)deselectEdit();updateSelectionBox();syncAppearanceFields()}
+function captureEditState(){const state={};staticEditorRoots.forEach(o=>{const t=worldAwareTransformState(o);state[o.userData.editId]={...t,c:extractObjectColour(o),g:o.userData.groupId||'',f:o.userData.surfaceFinish||'',interactive:o.userData.interactive===true,highlightOnHover:o.userData.highlightOnHover===true,highlightStyle:o.userData.highlightStyle||'outline',clickAction:o.userData.clickAction||'none',clickTarget:o.userData.clickTarget||''}});return state}
+function applyEditState(state){if(!state)return;staticEditorRoots.forEach(o=>{const d=state[o.userData.editId];if(!d)return;o.position.fromArray(d.p);o.rotation.set(d.r[0],d.r[1],d.r[2],d.r[3]||'XYZ');o.scale.fromArray(d.s);o.visible=d.v!==false;o.userData.groupId=d.g||'';noteGroupId(o.userData.groupId);o.userData.interactive=d.interactive===true;o.userData.highlightOnHover=d.highlightOnHover===true;o.userData.highlightStyle=d.highlightStyle||'outline';o.userData.clickAction=d.clickAction||'none';o.userData.clickTarget=d.clickTarget||'';if(d.c)setObjectColour(o,d.c);if(d.f)applySurfaceFinish(o,d.f)});if(selectedEdit&&!selectedEdit.visible)deselectEdit();updateSelectionBox();syncAppearanceFields()}
 function transformState(o){return worldAwareTransformState(o)}
 function applyTransformState(o,d){if(!d)return;o.position.fromArray(d.p||[0,0,0]);const r=d.r||[0,0,0,'XYZ'];o.rotation.set(r[0],r[1],r[2],r[3]||'XYZ');o.scale.fromArray(d.s||[1,1,1]);o.visible=d.v!==false;if(isArtworkPanelRoot(o))syncArtworkTextureCrop(o)}
 
@@ -252,6 +252,11 @@ function buildObjectFromDescriptor(d){
   o.userData.viewLayer=d.viewLayer||'';
   o.userData.v184EventLayoutMember=!!d.eventLayoutMember;
   o.userData.v185EventTypes=Array.isArray(d.eventTypes)?d.eventTypes.slice():[];
+  o.userData.interactive=d.interactive===true;
+  o.userData.highlightOnHover=d.highlightOnHover===true;
+  o.userData.highlightStyle=d.highlightStyle||'outline';
+  o.userData.clickAction=d.clickAction||'none';
+  o.userData.clickTarget=d.clickTarget||'';
   noteGroupId(o.userData.groupId);
   if(isSpeakerStackRoot(o)&&d.color){o.userData.colorOverride=d.color;rebuildSpeakerStackObject(o)}
   else if(d.color&&!['artwork','plantAsset','barAsset'].includes(d.type))setObjectColour(o,d.color);

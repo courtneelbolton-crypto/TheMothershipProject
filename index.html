@@ -2498,6 +2498,20 @@
     </div>
   </div>
 
+  <div class="builder-box" id="objectInteractionBox">
+    <div class="builder-title"><span>INTERACTION</span><span id="objectInteractionStatus">SELECT AN OBJECT</span></div>
+    <div class="builder-fields">
+      <label class="layer-row"><span>HIGHLIGHT IN PUBLIC MODE</span><input id="interactionHighlightOnHover" type="checkbox" disabled></label>
+      <label class="layer-row"><span>CLICKABLE IN PUBLIC MODE</span><input id="interactionInteractive" type="checkbox" disabled></label>
+    </div>
+    <div class="builder-fields">
+      <label class="mini-field"><span>HIGHLIGHT STYLE</span><select id="interactionHighlightStyle" disabled><option value="outline">OUTLINE</option><option value="brightness">BRIGHTNESS</option><option value="emissive">EMISSIVE</option></select></label>
+      <label class="mini-field"><span>CLICK ACTION</span><select id="interactionClickAction" disabled><option value="none">NONE</option><option value="popup">OPEN EXISTING INFO POPUP</option><option value="page">OPEN PAGE / PANEL</option><option value="camera">CHANGE CAMERA / VIEW</option></select></label>
+    </div>
+    <label class="perf-page-field full" id="interactionTargetField" style="display:none"><span>TARGET</span><select id="interactionTarget" disabled></select></label>
+    <div class="builder-grid one"><button class="edit-btn small active" id="interactionApply" disabled>APPLY INTERACTION</button></div>
+  </div>
+
   <div class="builder-box appearance-box" id="v201AppearanceBox">
     <div class="builder-title"><span>OBJECT / SURFACE COLOUR</span><span>SELECTED + GROUPS</span></div>
     <div class="builder-fields">
