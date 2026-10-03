@@ -1253,6 +1253,44 @@ transform.addEventListener('objectChange',()=>{if(window.__mshipStageFastEdit){c
 transform.addEventListener('mouseUp',()=>{syncBuilderAfterTransform();if(window.__mshipStageFastEdit){try{updateSelectionBox();updateEditorSelected();syncLevelUI();if(typeof syncV180StageGroupUI==='function')syncV180StageGroupUI();markRenderDirty(90)}catch(e){}}});
 transform.addEventListener('dragging-changed',e=>{if(e.value)drag=false});
 
+/* V1130 · Canvas object picking in 3D Edit mode
+   The existing raycaster and selection system are reused.  A click on
+   the canvas selects the editable object under the cursor; a click on
+   empty space deselects.  Shift-click toggles multi-selection for
+   grouping.  A subtle BoxHelper outline appears on hover. */
+let _hoverOutline=null;
+function clearHoverOutline(){
+  if(_hoverOutline){_hoverOutline.parent?.remove(_hoverOutline);disposeObject3D?.(_hoverOutline)||(_hoverOutline.geometry?.dispose?.(),_hoverOutline.material?.dispose?.());_hoverOutline=null}
+}
+function setHoverOutline(obj){
+  if(obj===(_hoverOutline?._object))return;
+  clearHoverOutline();
+  if(!obj)return;
+  const h=new THREE.BoxHelper(obj,0x39d9f9);
+  h.material.depthTest=false;h.material.transparent=true;h.material.opacity=.55;h.renderOrder=9997;
+  h._object=obj;scene.add(h);_hoverOutline=h;
+}
+function editableHoverHit(e){
+  if(!editMode||drawMode||attachPickMode||hotspotDrawMode||venueMeasureMode)return null;
+  return getEditableHit(e);
+}
+renderer.domElement.addEventListener('pointermove',e=>{
+  if(!editMode||drawMode||attachPickMode||hotspotDrawMode||venueMeasureMode||drag){clearHoverOutline();return}
+  const hit=editableHoverHit(e);
+  setHoverOutline(hit);
+});
+renderer.domElement.addEventListener('click',e=>{
+  if(!editMode)return;
+  if(suppressNextCanvasClick){suppressNextCanvasClick=false;return}
+  if(drawMode||attachPickMode||hotspotDrawMode||venueMeasureMode)return;
+  if(navMoved)return;
+  if(e.button!==0&&e.button!==undefined)return;
+  const hit=getEditableHit(e);
+  if(!hit){deselectEdit();return}
+  if(e.shiftKey||e.metaKey||e.ctrlKey){toggleMultiSelection(hit);return}
+  selectEdit(hit);
+},{capture:false});
+
 __pubEl('wallAlignPerp').onclick=()=>alignSuggestedWall('perp');__pubEl('wallAlignParallel').onclick=()=>alignSuggestedWall('parallel');__pubEl('wallAlignKeep').onclick=keepWallSkew;__pubEl('btnEdit').onclick=()=>setEditMode(!editMode);__pubEl('toggleLayoutLock').onclick=()=>setLayoutLocked(!layoutLocked);__pubEl('fitAfterUnlock').onclick=fitVenueView;
 __pubEl('phaseLockNext').onclick=()=>togglePhaseLock(currentBuildPhase,!phaseLocks[currentBuildPhase]);__pubEl('phaseSolo').onclick=soloCurrentPhase;__pubEl('phaseAssignSelected').onclick=assignSelectedToCurrentPhase;document.querySelectorAll('[data-phase-layer]').forEach(el=>el.onchange=()=>setPhaseVisibility(+el.dataset.phaseLayer,el.checked));
 __pubEl('editMove').onclick=()=>setEditTool('translate');__pubEl('editScale').onclick=()=>setEditTool('scale');__pubEl('editRotate').onclick=()=>setEditTool('rotate');
