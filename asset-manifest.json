@@ -1,0 +1,200 @@
+[
+  {
+    "occurrence": 1,
+    "declared_mime": "image/png",
+    "actual_mime": "image/png",
+    "decoded_bytes": 3206763,
+    "sha256": "aa98d40f3365113ccb8d579c722ca071092dd510d7687d2485a03d2f86cc8039",
+    "file": "assets/images/page-content-image-01.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 2,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 101035,
+    "sha256": "fb0d3cf415af546f0bd210f2fcfc8df888be32a94b4d15cc4db2d33b2c529a99",
+    "file": "assets/images/visual-loop-red-lines.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 3,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 91755,
+    "sha256": "b86ed366f52ed59b6d7ba6c92eb301e7aa6e4dfc75585eee85c92f657fcd4171",
+    "file": "assets/images/visual-loop-red-grid.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 4,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 123630,
+    "sha256": "f701f962035b3d9994a0484cea4d6fe47e5c16b7eb2ae433d8ee9b03a5197e09",
+    "file": "assets/images/visual-loop-cyan-grid.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 5,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 270380,
+    "sha256": "f01be82e656614903a7037ee2746989ff0d391bd017138ccabdabb0a959f098e",
+    "file": "assets/images/visual-loop-cyan-smear.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 6,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 109518,
+    "sha256": "bd5868af4c15f8dd1bdd096179f6fcf06be0a8443a306b558771d97b29e32212",
+    "file": "assets/images/visual-loop-white-signal.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 7,
+    "declared_mime": "image/gif",
+    "actual_mime": "image/png",
+    "decoded_bytes": 219183,
+    "sha256": "8fc6f6322e8dc1a322f76d52852e7729a550f6227c7724642398ae954fcab23a",
+    "file": "assets/images/visual-loop-figure-glitch.png",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 8,
+    "declared_mime": "image/jpeg",
+    "actual_mime": "image/jpeg",
+    "decoded_bytes": 296062,
+    "sha256": "2b1f4f7fd772203347a53b5024ebce632ffc7d75729ef387626f0a4bc2a95ce5",
+    "file": "assets/images/page-content-image-02.jpg",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 9,
+    "declared_mime": "image/png",
+    "actual_mime": "image/png",
+    "decoded_bytes": 3206763,
+    "sha256": "aa98d40f3365113ccb8d579c722ca071092dd510d7687d2485a03d2f86cc8039",
+    "file": "assets/images/page-content-image-01.png",
+    "duplicate_of": "page-content-image-01.png"
+  },
+  {
+    "occurrence": 10,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 40176,
+    "sha256": "6b82cbb4f6691fceffe684bf1d6832dbe1a7d7ebab6d509cb888e23ced13ce95",
+    "file": "assets/images/venue-backlit-ship.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 11,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 213504,
+    "sha256": "2c4dbe881c59bb375e25024c8345600ccf11c1371bc194f085636b1f3b34a8ab",
+    "file": "assets/images/venue-mural-spaceship.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 12,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 148300,
+    "sha256": "4564be22e57397482d9add85453130dd224a5ec7815ee12526dc4a58ad4885a3",
+    "file": "assets/images/venue-mural-galaxy-blue.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 13,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 202848,
+    "sha256": "70c8720fd26c2e4cab6316ac567e7060d40305b340ebc07057fdb0893804ddb2",
+    "file": "assets/images/venue-mural-nebula.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 14,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 32052,
+    "sha256": "23a809e48296a9c088cb812034291bf5ae7cfee5d40eaf002b604b59584f8582",
+    "file": "assets/images/venue-spaceship.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 15,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 22126,
+    "sha256": "2dd1bdae10dfa34dd7c1c0994e75c7566a0f72e67f4b8745268cf3132095db51",
+    "file": "assets/images/venue-galaxy.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 16,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 35548,
+    "sha256": "9427e0ddf7842668b35a9f8fbc29a761708251cf2d0890649d0ec28a3dd5c5e2",
+    "file": "assets/images/venue-porthole.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 17,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 21994,
+    "sha256": "cd18232394f5ed0af928caa6788a9342734eaa499750c32420e9e85849a156f8",
+    "file": "assets/images/venue-lager-1.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 18,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 18014,
+    "sha256": "2caa392f3b01fd51cf62aa30ad451deb01f9568025d0589b30c89ab9988763b7",
+    "file": "assets/images/venue-lager-2.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 19,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 43694,
+    "sha256": "ea530a09a32b058e9f4eafa458d958656d7f58a032833719c0443b8c7c979109",
+    "file": "assets/images/venue-robot-poster.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 20,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 146460,
+    "sha256": "405703276a7f530b768c576750abb18f5d8f688e201ed4d9d61082b3ef10a38b",
+    "file": "assets/images/venue-event-marquee.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 21,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 188048,
+    "sha256": "bd1c8ea11f01359d7e4b2199dd371b48918976997cb80d28170158dc1c9076bb",
+    "file": "assets/images/venue-ornate-info-board.webp",
+    "duplicate_of": null
+  },
+  {
+    "occurrence": 22,
+    "declared_mime": "image/webp",
+    "actual_mime": "image/webp",
+    "decoded_bytes": 89108,
+    "sha256": "7618286f4d0f840cfb90eeffc9dcba2e26cd15e47b8fd30e98199e2aab5e1a5f",
+    "file": "assets/images/venue-plan-guide.webp",
+    "duplicate_of": null
+  }
+]
