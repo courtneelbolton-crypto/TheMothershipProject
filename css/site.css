@@ -76,8 +76,6 @@ body:not(.performance-mode) #editor.v161-advanced-hidden #v88UpdatesBox{
   display:block!important;
 }
 
-
-
 /* V258 · PAGE DETAILS ONLY */
 body:not(.performance-mode) #editor > *{display:none!important}
 body:not(.performance-mode) #editor > #v254ViewPack,
@@ -111,12 +109,11 @@ body:not(.performance-mode) #v194SubmenuDetailsEditor{margin-top:0!important}
 }
 body.v258-page-details-only.edit-on #wrap canvas{cursor:grab!important}
 
-
-
 /* V259 · PAGE DETAILS ONLY · GREEN ROOM / AUDIO / LIGHTING / VISUALS */
 body:not(.performance-mode) #toolbar,
 body:not(.performance-mode) #layers,
-body:not(.performance-mode) #navControls{display:none!important}
+body:not(.performance-mode) #navControls,
+#pageDetailsEditDock{display:none!important}
 
 body:not(.performance-mode) #editor{
   left:16px!important;top:62px!important;
@@ -150,11 +147,29 @@ body:not(.performance-mode) #editor > #v194SubmenuDetailsEditor{display:block!im
 body.light-mode .v260-page-history-note{color:#667085}
 
 
+/* The live page is the editing surface. Keep movement modular and visible. */
+body.v199-live-details-edit .v199-module-tools{opacity:.82!important}
+body.v199-live-details-edit .v199-live-module:hover .v199-module-tools,
+body.v199-live-details-edit .v199-live-module:has(.v199-live-selected) .v199-module-tools{opacity:1!important}
+body.v199-live-details-edit .v199-module-tools [data-v199-action="drag"]{
+  border-color:rgba(255,106,102,.55)!important;color:#ff6a66!important
+}
+body.v199-live-details-edit .v199-live-module{outline-offset:-1px}
+body.v199-live-details-edit [contenteditable="true"]{min-width:18px}
+body.v199-live-details-edit [contenteditable="true"]:focus{
+  background:rgba(57,217,249,.055)!important;
+  box-shadow:0 0 0 2px rgba(57,217,249,.58)!important
+}
+
 /* Let the chosen glass width be visible in both public preview and live edit. */
 @media(min-width:821px){
   body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-details-edit) #v194SubmenuDetailsPanel{
     width:var(--v258-glass-width,98%)!important;
     margin-left:auto!important;margin-right:auto!important
+  }
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:min(calc(100% - 468px),var(--v258-glass-width,98%))!important;
+    margin-left:450px!important;margin-right:18px!important
   }
 }
 
@@ -199,6 +214,23 @@ body.light-mode .v260-page-history-note{color:#667085}
 #v262ClearText:hover{border-color:#ff4f6f!important;color:#ffb0bd!important}
 #v262TextHint{display:flex;align-items:center;padding:0 4px;color:#6f7985;font:700 7px/1.35 'IBM Plex Mono',monospace}
 
+/* The live page text itself should behave like normal text editing, not a draggable widget. */
+body.v199-live-details-edit [contenteditable="true"],
+body.v199-live-details-edit [contenteditable="plaintext-only"]{
+  user-select:text!important;-webkit-user-select:text!important;
+  cursor:text!important;caret-color:#39d9f9!important;
+  touch-action:auto!important
+}
+body.v199-live-details-edit .v194-detail-module h3:empty::before{
+  content:'CLICK TO ADD TITLE';color:rgba(255,255,255,.26);font-style:normal
+}
+body.v199-live-details-edit .v194-detail-module .v197-body:empty::before{
+  content:'CLICK TO ADD TEXT';color:rgba(255,255,255,.26);font-style:normal
+}
+body.v199-live-details-edit #v194DetailsHeading:empty::before{
+  content:'CLICK TO ADD PAGE TITLE';color:rgba(255,255,255,.24);font-size:.46em;letter-spacing:.02em
+}
+
 /* Remove duplicate text-entry boxes from the long settings list.
    Text is now edited through the single SELECTED TEXT box above or directly on the page. */
 #v194SubmenuDetailsEditor label:has(#v194PageHeading),
@@ -207,9 +239,10 @@ body.light-mode .v260-page-history-note{color:#667085}
 #v194SubmenuDetailsEditor label:has(#v194BlockBody){display:none!important}
 @media(max-width:820px){
   body:not(.performance-mode) #editor{left:8px!important;width:calc(100vw - 16px)!important}
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
+  }
 }
-
-
 
 /* ======================================================================
    V261 · CLEAN PAGE DETAILS EDITOR + 12-COLUMN HEADER MODULES
@@ -357,12 +390,26 @@ body:not(.performance-mode) #editor{
   margin-right:52px!important;
 }
 .v261-header-module .v197-body{max-width:100%!important}
+body.v199-live-details-edit #v194DetailsIntro[style*="display: none"]::before{display:none!important}
+
+@media(min-width:821px){
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:min(calc(100% - 554px),var(--v258-glass-width,98%))!important;
+    margin-left:536px!important;margin-right:18px!important
+  }
+}
 @media(max-width:980px){
   body:not(.performance-mode) #editor{width:min(470px,calc(100vw - 20px))!important;left:10px!important}
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 500px)!important;margin-left:490px!important
+  }
 }
 @media(max-width:820px){
   body:not(.performance-mode) #editor{
     left:8px!important;top:54px!important;width:calc(100vw - 16px)!important;max-height:calc(100vh - 62px)!important
+  }
+  body.v199-live-details-edit #v194SubmenuDetailsPanel{
+    width:calc(100% - 16px)!important;margin:76px 8px 34px!important
   }
   #v194SubmenuDetailsEditor .perf-page-fields{grid-template-columns:1fr!important}
   #v194SubmenuDetailsEditor .perf-page-field.full,
@@ -371,11 +418,7 @@ body:not(.performance-mode) #editor{
   .v261-header-actions{grid-template-columns:1fr!important}
 }
 
-
-
 #v194DetailsStatus.v266-applied{border-color:rgba(81,224,109,.52)!important;color:#51e06d!important;background:rgba(81,224,109,.055)!important}
-
-
 
 /* V270 · ALWAYS-AVAILABLE PAGE EDIT / PREVIEW SWITCH */
 #v270ModeSwitch{
@@ -410,8 +453,6 @@ body:not(.published-promoter-only) #siteEditBtn{display:none!important}
   #v270ModeSwitch{right:8px;top:54px}
   #v270ModeSwitch button{padding:0 10px}
 }
-
-
 
 /* V271 · FLEXIBLE EDITORIAL PAGE DETAILS GRID
    One consistent 12-column placement system for header + content modules. */
@@ -453,7 +494,13 @@ body:not(.published-promoter-only) #siteEditBtn{display:none!important}
 .v271-ruled-rows .v197-spec-arrow{color:#cc3c3a!important;font-weight:800!important}
 
 /* In live edit, make the placement of the selected module easier to see. */
+body.v199-live-details-edit .v194-detail-module.v199-live-module{
+  outline:1px dashed rgba(255,255,255,.055);outline-offset:-1px;
+}
 body.v199-live-details-edit .v194-detail-module.v199-live-module:has(.v199-live-selected),
+body.v199-live-details-edit .v194-detail-module.v199-live-selected{
+  outline-color:rgba(57,217,249,.46)!important;
+}
 
 @media(max-width:820px){
   .v194-details-grid{grid-template-columns:1fr!important}
@@ -461,11 +508,8 @@ body.v199-live-details-edit .v194-detail-module.v199-live-module:has(.v199-live-
   .v261-header-module.v271-grid-module{grid-column:1!important;grid-row:auto!important}
 }
 
-
-
 /* V274 · Scroll sheet top control can now genuinely override the legacy !important margin. */
 #v272PanelTop,#v272PanelTopNumber{accent-color:#cc3c3a}
-
 
 @media(min-width:721px){#siteNav{width:380px!important;max-width:calc(100vw - 44px)!important;background:linear-gradient(145deg,rgba(11,12,16,0.800),rgba(11,12,16,0.720) 58%,rgba(11,12,16,0.800))!important}#siteNav .site-nav-link{font-size:22px!important;color:#f6f6f4!important}#siteNav .site-nav-link::before{color:#f6f6f4!important}#siteNav .site-nav-link.active{color:#ff514f!important;box-shadow:inset 3px 0 0 #ff514f!important}#siteNav .site-nav-link.active::before{color:#ff514f!important}body.v168-nav-compact.v168-nav-expanded #siteNav{width:380px!important}body.v168-nav-compact:not(.v168-nav-expanded) #siteNav .site-nav-link.active{color:#f6f6f4!important}}
 
@@ -651,7 +695,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 }
 
 
-
 #v194SubmenuDetailsEditor .v282-add-row{
   width:100%;margin-top:8px;min-height:38px;
   border:1px dashed rgba(74,215,235,.48)!important;
@@ -660,12 +703,8 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 }
 #v194SubmenuDetailsEditor .v282-add-row:hover{background:rgba(74,215,235,.10)!important}
 
-
-
 #v283BlockHeight{font-variant-numeric:tabular-nums}
 #v283BlockHeight::placeholder{color:#777}
-
-
 
 /* V284 — optional underline formatting */
 #v194SubmenuDetailsPanel .v194-detail-module.v284-title-underline h3{
@@ -682,8 +721,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   text-decoration-thickness:.055em;
   text-decoration-skip-ink:auto;
 }
-
-
 
 /* V285 — image with ruled rows beside it */
 #v194SubmenuDetailsEditor:not(.v261-block-mixed) #v285RowsBesideImageField,
@@ -729,8 +766,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   .v194-detail-module.type-mixed.v285-side-rows > img{height:auto!important;min-height:0!important}
 }
 
-
-
 /* V286 — independent vertical stacks inside one grid column */
 .v286-column-stack{
   display:flex;
@@ -753,8 +788,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   letter-spacing:.3px;
   margin-top:4px;
 }
-
-
 
 /* V289 — adjustable decorative divider line module */
 #v194SubmenuDetailsEditor .v288-add-divider{
@@ -791,8 +824,12 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
   min-height:0!important;padding:10px 0!important;border:0!important;background:none!important;box-shadow:none!important;
 }
-
-
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider{
+  min-height:42px!important;padding:9px 0!important;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider.v199-live-selected{
+  outline:1px dashed rgba(74,215,235,.55)!important;outline-offset:5px;
+}
 
 /* V289/V290 — independent list arrows, subheadings, rounded section boxes + standalone section cards */
 #v194SubmenuDetailsEditor .v289-subsections-wrap{
@@ -937,7 +974,11 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 .v194-detail-module.type-sectioncard.v290-card-left{justify-self:start}
 .v194-detail-module.type-sectioncard.v290-card-center{justify-self:center}
 .v194-detail-module.type-sectioncard.v290-card-right{justify-self:end}
+body.v199-live-details-edit .v194-detail-module.type-sectioncard{
+  z-index:1;outline:1px dashed rgba(74,215,235,.40);outline-offset:-5px;
+}
 body.v199-live-details-edit .v194-detail-module.type-sectioncard .v199-module-tools,
+body.v199-live-details-edit .v194-detail-module.type-sectioncard .v290-card-placeholder{pointer-events:auto}
 .v290-card-placeholder{
   position:absolute;left:12px;bottom:10px;z-index:3;padding:5px 7px;border-radius:4px;
   background:rgba(3,7,10,.82);border:1px solid rgba(74,215,235,.32);color:#62d7ea;
@@ -946,8 +987,6 @@ body.v199-live-details-edit .v194-detail-module.type-sectioncard .v199-module-to
 body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard{
   padding:0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important;
 }
-
-
 
 /* V291 — clean list separators: one solid line above every row, no bottom/double rule.
    Arrow visibility is intentionally independent from line visibility. */
@@ -985,8 +1024,6 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   display:none!important;
 }
 
-
-
 /* V292 — section wrappers + free-positioned background area boxes */
 #v194SubmenuDetailsEditor .v292-box-add-grid{margin-top:8px;gap:8px}
 #v194SubmenuDetailsEditor .v292-box-add-grid .v290-add-card{margin-top:0}
@@ -1007,9 +1044,13 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
   grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;
   z-index:0!important;
 }
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card{
+  outline:1px dashed rgba(255,98,91,.55)!important;outline-offset:-5px;
+}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v292-area-card .v290-card-placeholder{
+  border-color:rgba(255,98,91,.45);color:#ff8b86;
+}
 @media(max-width:760px){#v194SubmenuDetailsEditor .v292-area-grid{grid-template-columns:1fr 1fr}}
-
-
 
 #v194SubmenuDetailsEditor .v293-add-group{width:100%;margin-top:8px;min-height:38px;border:1px dashed rgba(123,103,255,.62)!important;color:#aa9cff!important;background:rgba(123,103,255,.035)!important;letter-spacing:.10em;font-weight:800}
 #v194SubmenuDetailsEditor .v293-add-group:hover{background:rgba(123,103,255,.09)!important}
@@ -1022,14 +1063,16 @@ body.performance-mode.site-preview.v194-submenu-details-active #v194SubmenuDetai
 #v194SubmenuDetailsEditor .v293-member-row small{color:#6e7580;font-size:7px;white-space:nowrap}
 #v194SubmenuDetailsEditor .v293-group-empty{padding:9px;border:1px dashed #2b3037;border-radius:5px;color:#6f7781;font:700 8px/1.4 'IBM Plex Mono',monospace}
 #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{position:absolute!important;left:0;top:0;width:100px;height:80px;min-height:0!important;grid-column:auto!important;grid-row:auto!important;justify-self:auto!important;z-index:0!important;pointer-events:none}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card{outline:1px dashed rgba(139,121,255,.7)!important;outline-offset:-5px}
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard.v293-group-card .v290-card-placeholder{border-color:rgba(139,121,255,.55)!important;color:#b6aaff!important;background:rgba(10,8,24,.88)!important}
 #v194SubmenuDetailsPanel .v194-detail-module.v293-group-member{position:relative;z-index:2}
 
-
-
 body.v199-live-details-edit .v289-subheading[contenteditable],
+body.v199-live-details-edit .v289-subtext-row[contenteditable]{cursor:text;outline:none}
 body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
-
-
+body.v199-live-details-edit .v289-subtext-row[contenteditable]:hover{background:rgba(54,210,239,.055)}
+body.v199-live-details-edit .v290-card-placeholder{cursor:pointer;pointer-events:auto!important}
+body.v199-live-details-edit .v290-card-placeholder:hover{border-color:rgba(54,210,239,.55)!important;color:#36d2ef!important}
 
 /* V296 — per-block list row vertical spacing */
 #v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
@@ -1050,8 +1093,6 @@ body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
   color:#8c929b;
   letter-spacing:.45px;
 }
-
-
 
 #v194SubmenuDetailsEditor .v299-offset-controls{
   display:grid;
@@ -1083,8 +1124,6 @@ body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
   width:100%;
 }
 
-
-
 /* V300 — live/preview title spacing parity + per-block top line + number styling */
 
 /* Preserve deliberate spaces in titles in BOTH edit and preview modes. */
@@ -1110,20 +1149,43 @@ body.v199-live-details-edit .v289-subheading[contenteditable]:hover,
   display:none!important;
 }
 
-
-
 /* V301 — clearer block discovery while editing */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module{
+  transition:
+    background-color .14s ease,
+    box-shadow .14s ease,
+    outline-color .14s ease,
+    filter .14s ease!important;
+  outline:1px solid transparent;
+  outline-offset:2px;
+}
 
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover{
+  background-color:rgba(255,255,255,.075)!important;
+  outline-color:rgba(255,255,255,.16)!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 0 0 4px rgba(255,255,255,.018)!important;
+}
 
 /* Make text/image regions a touch easier to visually locate without washing them out. */
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module:hover img{
+  filter:brightness(1.055);
+}
 
 /* Selected block stays slightly more obvious than hover-only blocks. */
 body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.v199-selected,
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module[data-selected="true"]{
+  background-color:rgba(52,203,232,.035)!important;
+  outline-color:rgba(52,203,232,.38)!important;
+}
 
 /* Divider and card elements get the same easy-to-find hover treatment. */
 body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-divider:hover,
-
-
+body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-sectioncard:hover{
+  background-color:rgba(255,255,255,.035)!important;
+  outline-color:rgba(255,255,255,.2)!important;
+}
 
 #v194SubmenuDetailsPanel .v194-detail-module.v303-custom-number::after{
   content:attr(data-v303-number)!important;
@@ -1137,8 +1199,6 @@ body.v199-live-details-edit #v194SubmenuDetailsPanel .v194-detail-module.type-di
 #v194SubmenuDetailsPanel .v194-detail-module .v289-subtext-row{
   line-height:var(--v303-list-line-height,1.2)!important;
 }
-
-
 
 /* V315 — precise preview hover.
    The highlight is a separate overlay positioned from the live geometry,
@@ -1214,8 +1274,6 @@ body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-de
   transition:color .14s ease!important;
 }
 
-
-
 /* Safe minimum clearance from divider lines, even when the editor value is 0. */
 #v194SubmenuDetailsPanel .v194-detail-module .v197-spec-row,
 #v194SubmenuDetailsPanel .v194-detail-module .v289-subtext .v197-spec-row{
@@ -1245,8 +1303,6 @@ body.performance-mode.site-preview.v194-submenu-details-active:not(.v199-live-de
 #v194SubmenuDetailsPanel .v194-detail-module .v289-subtext-row{
   line-height:max(var(--v303-list-line-height,1.2),.95)!important;
 }
-
-
 
 /* The old base spec style forced every row to be at least 39px high.
    V306 finally makes that value editable and defaults it to zero. */
@@ -1302,8 +1358,6 @@ body.v199-live-details-edit #v194SubmenuDetailsPanel
   display:none!important;
 }
 
-
-
 /* V307 — cards should hug their own content, not stretch to the tallest grid item. */
 #v194SubmenuDetailsPanel .v194-details-grid{
   align-items:start!important;
@@ -1326,8 +1380,6 @@ body.v199-live-details-edit #v194SubmenuDetailsPanel
   align-self:start!important;
   height:max-content!important;
 }
-
-
 
 /* V309 — fixed Page Details design width.
    When enabled, browser resizing does NOT squeeze the 12-column design. */
@@ -1415,8 +1467,6 @@ body[data-v309-lock-width="1"].v194-submenu-details-active
   }
 }
 
-
-
 #v194SubmenuDetailsEditor .v311-height-nudges{
   display:grid;
   grid-template-columns:auto auto minmax(82px,1fr) auto auto;
@@ -1455,8 +1505,6 @@ body[data-v309-lock-width="1"].v194-submenu-details-active
   max-height:none!important;
   box-sizing:border-box!important;
 }
-
-
 
 #v194SubmenuDetailsEditor .v312-glass-shift-controls{
   display:grid;
@@ -1502,8 +1550,6 @@ body[data-v309-lock-width="1"].v194-submenu-details-active{
   overflow-x:auto!important;
 }
 
-
-
 /* True viewport centering:
    center the PANEL BORDER BOX itself, irrespective of its fixed width/padding.
    Internal grid sizes/positions remain untouched. */
@@ -1533,8 +1579,6 @@ body.v194-submenu-details-active
   left:auto!important;
   transform:translateX(var(--v312-glass-shift-x,0px))!important;
 }
-
-
 
 /* Existing section boxes keep their exact original border thickness.
    Hover changes colour only — no second stroke is layered on top. */
@@ -1569,8 +1613,6 @@ body.v194-submenu-details-active
   border-color:transparent!important;
   box-shadow:none!important;
 }
-
-
 
 /* Keep the live venue background locked to the visible browser viewport,
    regardless of Chrome's page zoom. This does NOT move the venue camera. */
@@ -1637,8 +1679,6 @@ body.performance-mode.site-preview .v194-detail-module h3:empty::before{
   display:none!important;
   content:none!important;
 }
-
-
 
 /* V327 — Audio hero text is real saved data and visible in BOTH modes. */
 #v194SubmenuDetailsEditor .v324-audio-only{display:none!important}
