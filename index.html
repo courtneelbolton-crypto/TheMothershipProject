@@ -4587,6 +4587,322 @@ body.v199-live-details-edit .v265-bullet-text[contenteditable="plaintext-only"]:
 #v194SubmenuDetailsEditor .v275-save-status.loaded{color:#ffd166}
 #v277JsonInput{display:none!important}
 @media(max-width:620px){#v194SubmenuDetailsEditor .v275-save-export{grid-template-columns:1fr}}
+
+
+/* ========================================================================
+   SPATIAL PANEL SYSTEM · v2.0
+   Reusable editorial panel composition for the public website.
+   Controls: data-layout, data-hover, data-size, data-align, data-layer
+   ======================================================================== */
+
+.spatial-panel{
+  --sp-pad:24px;
+  --sp-radius:2px;
+  --sp-border:1px solid var(--line);
+  --sp-bg:rgba(11,12,15,.72);
+  --sp-depth-y:0px;
+  --sp-depth-scale:1;
+  --sp-tilt-x:0deg;
+  --sp-tilt-y:0deg;
+  --sp-cursor-x:0;
+  --sp-cursor-y:0;
+  position:relative;
+  padding:var(--sp-pad);
+  border:var(--sp-border);
+  border-radius:var(--sp-radius);
+  background:var(--sp-bg);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  transform:perspective(900px)
+    rotateX(var(--sp-tilt-x))
+    rotateY(var(--sp-tilt-y))
+    translateY(var(--sp-depth-y))
+    scale(var(--sp-depth-scale));
+  transition:transform .4s cubic-bezier(.16,1,.3,1),
+    border-color .3s,box-shadow .4s;
+  will-change:transform;
+  display:flex;
+  flex-direction:column;
+}
+
+/* --- size variants --- */
+.spatial-panel[data-size="small"]{--sp-pad:16px;max-width:280px}
+.spatial-panel[data-size="medium"]{--sp-pad:22px;max-width:420px}
+.spatial-panel[data-size="large"]{--sp-pad:30px;max-width:680px}
+.spatial-panel[data-size="full"]{--sp-pad:30px;max-width:none;width:100%}
+
+/* --- layer / depth variants --- */
+.spatial-panel[data-layer="background"]{
+  --sp-bg:rgba(7,8,10,.45);
+  border-color:rgba(40,43,49,.5);
+  z-index:1;
+}
+.spatial-panel[data-layer="standard"]{z-index:5}
+.spatial-panel[data-layer="foreground"]{
+  --sp-bg:rgba(14,15,19,.88);
+  z-index:10;
+}
+
+/* --- alignment within parent --- */
+.spatial-panel[data-align="left"]{align-self:flex-start}
+.spatial-panel[data-align="centre"]{align-self:center}
+.spatial-panel[data-align="right"]{align-self:flex-end}
+
+/* --- hover: lift --- */
+.spatial-panel[data-hover="lift"]:hover{
+  --sp-depth-y:-8px;
+  --sp-depth-scale:1.015;
+  border-color:rgba(255,46,131,.35);
+  box-shadow:0 24px 60px -20px rgba(0,0,0,.5);
+}
+/* --- hover: scale --- */
+.spatial-panel[data-hover="scale"]:hover{
+  --sp-depth-scale:1.03;
+  border-color:rgba(57,217,249,.35);
+}
+/* --- hover: tilt (set by JS on pointermove) --- */
+.spatial-panel[data-hover="tilt"]:hover{
+  border-color:rgba(57,217,249,.3);
+  box-shadow:0 20px 50px -18px rgba(0,0,0,.45);
+}
+/* --- hover: cursor-follow (set by JS) --- */
+.spatial-panel[data-hover="cursor-follow"]:hover{
+  border-color:rgba(255,46,131,.28);
+  box-shadow:0 18px 46px -16px rgba(0,0,0,.4);
+}
+/* --- hover: image-pan --- */
+.spatial-panel[data-hover="image-pan"] .sp-media{
+  overflow:hidden;
+}
+.spatial-panel[data-hover="image-pan"] .sp-media img{
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.spatial-panel[data-hover="image-pan"]:hover .sp-media img{
+  transform:scale(1.08) translate(calc(var(--sp-cursor-x) * -12px),calc(var(--sp-cursor-y) * -12px));
+}
+/* --- hover: depth --- */
+.spatial-panel[data-hover="depth"]:hover{
+  --sp-depth-scale:1.02;
+  --sp-depth-y:-4px;
+  border-color:rgba(40,43,49,.8);
+  box-shadow:0 14px 36px -14px rgba(0,0,0,.35);
+}
+/* --- hover: none --- */
+.spatial-panel[data-hover="none"]{transition:none}
+
+/* --- content helpers --- */
+.sp-kicker{
+  font:600 10px 'IBM Plex Mono',monospace;
+  letter-spacing:1.6px;
+  color:var(--pink);
+  margin-bottom:12px;
+}
+.spatial-panel[data-layer="background"] .sp-kicker{
+  color:var(--cyan);
+}
+.sp-title{
+  font-size:clamp(22px,2vw,32px);
+  font-weight:700;
+  line-height:1.02;
+  letter-spacing:-.5px;
+  color:var(--text);
+  margin:0 0 12px;
+}
+.sp-body{
+  font-size:13px;
+  line-height:1.45;
+  color:#bdbdb9;
+  margin:0;
+}
+.sp-body+.sp-body{margin-top:10px}
+.sp-action{
+  margin-top:auto;
+  padding-top:16px;
+  font:600 10px 'IBM Plex Mono',monospace;
+  letter-spacing:1.4px;
+  color:var(--cyan);
+  background:none;
+  border:0;
+  cursor:pointer;
+  text-align:left;
+}
+.sp-action:hover{color:var(--pink)}
+.sp-media{
+  position:relative;
+  margin:-var(--sp-pad) -var(--sp-pad) 16px;
+  width:calc(100% + var(--sp-pad) * 2);
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+.sp-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.sp-spec-list{
+  list-style:none;
+  padding:0;
+  margin:14px 0 0;
+}
+.sp-spec-list li{
+  padding:6px 0;
+  border-bottom:1px solid #1f1f1f;
+  font-size:12px;
+  line-height:1.35;
+  color:#bdbdb9;
+}
+.sp-spec-list li:before{
+  content:'↳';
+  color:var(--pink);
+  margin-right:8px;
+}
+.sp-label-tag{
+  font:600 9px 'IBM Plex Mono',monospace;
+  letter-spacing:1.8px;
+  color:var(--dim);
+}
+
+/* ========================================================================
+   PRODUCTION PAGE · SPATIAL COMPOSITION
+   ======================================================================== */
+
+#siteProduction .spatial-composition{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:minmax(60px,auto);
+  gap:0;
+  padding:24px 0 48px;
+  min-height:620px;
+}
+
+/* Feature panel — large, top-left, spans 7 cols */
+#siteProduction .sp-feature{
+  grid-column:1 / span 7;
+  grid-row:1 / span 4;
+}
+/* Media panel — right side, spans 5 cols, slightly lower */
+#siteProduction .sp-media-panel{
+  grid-column:8 / span 5;
+  grid-row:1 / span 3;
+  margin-top:40px;
+}
+/* Medium panel 1 — left, below feature */
+#siteProduction .sp-medium-a{
+  grid-column:1 / span 4;
+  grid-row:5 / span 2;
+  margin-top:20px;
+}
+/* Medium panel 2 — centre, overlapping feature bottom */
+#siteProduction .sp-medium-b{
+  grid-column:5 / span 4;
+  grid-row:6 / span 2;
+  margin-top:-30px;
+  z-index:8;
+}
+/* Small floating label — right, offset down */
+#siteProduction .sp-float-label{
+  grid-column:9 / span 3;
+  grid-row:4 / span 1;
+  margin-top:16px;
+}
+/* Cursor-follow panel — bottom-right */
+#siteProduction .sp-cursor-panel{
+  grid-column:7 / span 6;
+  grid-row:7 / span 2;
+  margin-top:10px;
+}
+/* Scroll-depth panel — bottom-left, full width */
+#siteProduction .sp-scroll-panel{
+  grid-column:1 / span 6;
+  grid-row:8 / span 2;
+  margin-top:-20px;
+}
+
+/* Subtle overlap relationship: medium-b overlaps feature bottom edge */
+#siteProduction .sp-medium-b::before{
+  content:'';
+  position:absolute;
+  top:-1px;left:-1px;right:-1px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:0;
+  transition:opacity .4s;
+}
+#siteProduction .sp-medium-b:hover::before{opacity:.6}
+
+/* Scroll parallax: background panels drift slightly on scroll */
+#siteProduction .sp-scroll-panel{
+  transition:transform .15s ease-out,border-color .3s,box-shadow .4s;
+}
+
+/* ========================================================================
+   RESPONSIVE · TABLET
+   ======================================================================== */
+@media(max-width:1024px){
+  #siteProduction .spatial-composition{
+    gap:12px;
+    min-height:auto;
+  }
+  #siteProduction .sp-medium-b{margin-top:0}
+  #siteProduction .sp-scroll-panel{margin-top:0}
+  #siteProduction .sp-media-panel{margin-top:20px}
+}
+
+/* ========================================================================
+   RESPONSIVE · MOBILE
+   Convert floating composition to clean ordered vertical stack.
+   ======================================================================== */
+@media(max-width:640px){
+  #siteProduction .spatial-composition{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    padding:16px 0 32px;
+    min-height:auto;
+  }
+  #siteProduction .spatial-composition .spatial-panel{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    margin:0!important;
+    max-width:100%!important;
+    width:100%!important;
+  }
+  #siteProduction .sp-medium-b{z-index:5}
+}
+
+/* ========================================================================
+   REDUCED MOTION
+   ======================================================================== */
+@media(prefers-reduced-motion:reduce){
+  .spatial-panel{
+    transition:border-color .3s,box-shadow .3s!important;
+    transform:none!important;
+    --sp-depth-y:0px!important;
+    --sp-depth-scale:1!important;
+    --sp-tilt-x:0deg!important;
+    --sp-tilt-y:0deg!important;
+  }
+  .spatial-panel[data-hover="image-pan"] .sp-media img{
+    transition:none!important;
+  }
+}
+
+/* Touch devices: disable cursor-follow/tilt */
+@media(hover:none) and (pointer:coarse){
+  .spatial-panel[data-hover="cursor-follow"],
+  .spatial-panel[data-hover="tilt"]{
+    --sp-tilt-x:0deg!important;
+    --sp-tilt-y:0deg!important;
+    --sp-depth-y:0px!important;
+    --sp-depth-scale:1!important;
+  }
+  .spatial-panel[data-hover="cursor-follow"]:hover,
+  .spatial-panel[data-hover="tilt"]:hover{
+    transform:none;
+  }
+}
 </style>
 
 
@@ -6609,12 +6925,62 @@ body.performance-mode.site-preview .v194-detail-module h3:empty::before{
     
     
     
-    <div class="site-content-grid bsmnt-layout-stack stack-deck image-style-mono image-ratio-landscape" style="display: grid; --bsmnt-stack-offset: 10px; --bsmnt-card-gap: 18px;" data-page-section="production" data-hover-mode="cursor" data-image-style="mono" data-image-ratio="landscape">
-      <article class="site-content-card bsmnt-enter bsmnt-inview" style="--stack-index: 0; --stack-depth-index: 0; z-index: 10;" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::0" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0"><div class="site-card-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::card-kicker">SOUND</div><h3 data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::h3">FOH + PA</h3><p data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::p:0">Adamson PA, Lab Gruppen amplification and Midas M32 front-of-house control.</p><button class="site-inline-action" data-site-object="foh">FOCUS FOH →</button><button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0" title="Hide this entire section from Performance Mode">DELETE SECTION</button></article>
-      <article class="site-content-card bsmnt-enter bsmnt-inview" style="--stack-index: 1; --stack-depth-index: 1; z-index: 11;" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::1" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1"><div class="site-card-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::card-kicker">LIGHTING</div><h3 data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::h3">Dynamic Rig</h3><p data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::p:0">Fixture groups, colours, movement, haze and intensity can be demonstrated live in Performance Mode.</p><button class="site-inline-action" id="siteProductionLighting">OPEN LIGHTING CONTROL →</button><button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1" title="Hide this entire section from Performance Mode">DELETE SECTION</button></article>
-      <article class="site-content-card bsmnt-enter bsmnt-inview" style="--stack-index: 2; --stack-depth-index: 2; z-index: 12;" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::2" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2"><div class="site-card-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::card-kicker">VISUALS</div><h3 data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::h3">LED + Resolume</h3><p data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::p:0">Visual playback and screen content can be previewed directly in the digital room.</p><button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2" title="Hide this entire section from Performance Mode">DELETE SECTION</button></article>
-      <article class="site-content-card wide bsmnt-enter bsmnt-inview" style="--stack-index: 3; --stack-depth-index: 3; z-index: 13;" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3"><div class="site-card-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::card-kicker">STAGE</div><h3 data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::h3">Band / DJ / 360°</h3><p data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::p:0">Stage dimensions, monitor placement, speakers, DJ booth and band gear belong here — alongside the live layout preview.</p><button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" title="Hide this entire section from Performance Mode">DELETE SECTION</button></article>
-      <article class="site-content-card wide bsmnt-enter bsmnt-inview" style="--stack-index: 4; --stack-depth-index: 4; z-index: 14;" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4"><div class="site-card-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::card-kicker">BACKLINE + GEAR</div><h3 data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::h3">Inventory</h3><p data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::p:0">The inventory book in the virtual venue becomes the shortcut to available backline, DJ equipment and production gear.</p><button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" title="Hide this entire section from Performance Mode">DELETE SECTION</button></article>
+    <div class="spatial-composition" data-page-section="production" data-hover-mode="cursor" data-image-style="mono" data-image-ratio="landscape">
+
+      <!-- Large feature panel: FOH + PA (connected to 3D FOH object) -->
+      <article class="spatial-panel sp-feature bsmnt-enter bsmnt-inview" data-layout="float" data-hover="lift" data-size="large" data-align="left" data-layer="foreground" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::0" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0">
+        <div class="sp-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::card-kicker">SOUND</div>
+        <h3 class="sp-title" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::h3">FOH + PA</h3>
+        <p class="sp-body" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0::text::p:0">Adamson PA, Lab Gruppen amplification and Midas M32 front-of-house control.</p>
+        <button class="sp-action site-inline-action" data-site-object="foh">FOCUS FOH →</button>
+        <button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::0" title="Hide this entire section from Performance Mode">DELETE SECTION</button>
+      </article>
+
+      <!-- Media-capable panel: Visuals / LED + Resolume -->
+      <article class="spatial-panel sp-media-panel bsmnt-enter bsmnt-inview" data-layout="float" data-hover="image-pan" data-size="medium" data-align="right" data-layer="standard" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::2" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2">
+        <div class="sp-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::card-kicker">VISUALS</div>
+        <h3 class="sp-title" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::h3">LED + Resolume</h3>
+        <p class="sp-body" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2::text::p:0">Visual playback and screen content can be previewed directly in the digital room.</p>
+        <button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::2" title="Hide this entire section from Performance Mode">DELETE SECTION</button>
+      </article>
+
+      <!-- Medium panel A: Lighting Dynamic Rig -->
+      <article class="spatial-panel sp-medium-a bsmnt-enter bsmnt-inview" data-layout="grid" data-hover="depth" data-size="medium" data-align="left" data-layer="standard" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview::1" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1">
+        <div class="sp-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::card-kicker">LIGHTING</div>
+        <h3 class="sp-title" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::h3">Dynamic Rig</h3>
+        <p class="sp-body" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1::text::p:0">Fixture groups, colours, movement, haze and intensity can be demonstrated live in Performance Mode.</p>
+        <button class="sp-action site-inline-action" id="siteProductionLighting">OPEN LIGHTING CONTROL →</button>
+        <button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview::1" title="Hide this entire section from Performance Mode">DELETE SECTION</button>
+      </article>
+
+      <!-- Medium panel B: Stage (overlapping relationship with feature panel) -->
+      <article class="spatial-panel sp-medium-b bsmnt-enter bsmnt-inview" data-layout="float" data-hover="scale" data-size="medium" data-align="centre" data-layer="foreground" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3">
+        <div class="sp-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::card-kicker">STAGE</div>
+        <h3 class="sp-title" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::h3">Band / DJ / 360°</h3>
+        <p class="sp-body" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3::text::p:0">Stage dimensions, monitor placement, speakers, DJ booth and band gear belong here — alongside the live layout preview.</p>
+        <button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::3" title="Hide this entire section from Performance Mode">DELETE SECTION</button>
+      </article>
+
+      <!-- Small floating label panel -->
+      <div class="spatial-panel sp-float-label bsmnt-enter bsmnt-inview" data-layout="float" data-hover="none" data-size="small" data-align="right" data-layer="background">
+        <span class="sp-label-tag">03 · PRODUCTION CHAPTER</span>
+        <p class="sp-body" style="margin-top:8px;font-size:11px;line-height:1.5">Sound, lighting, visuals, stage and backline — grouped as one production chapter with the FOH booth and stage as physical entry points.</p>
+      </div>
+
+      <!-- Cursor-follow panel: Backline + Gear -->
+      <article class="spatial-panel sp-cursor-panel bsmnt-enter bsmnt-inview" data-layout="float" data-hover="cursor-follow" data-size="medium" data-align="right" data-layer="foreground" data-page-module-stable-id="site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" data-page-detail-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" data-page-module-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4">
+        <div class="sp-kicker" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::card-kicker">BACKLINE + GEAR</div>
+        <h3 class="sp-title" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::h3">Inventory</h3>
+        <p class="sp-body" data-page-text-style-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4::text::p:0">The inventory book in the virtual venue becomes the shortcut to available backline, DJ equipment and production gear.</p>
+        <button type="button" class="page-detail-section-control" data-section-key="production::static::site-content-grid::bsmnt-enter-bsmnt-inview-wide::4" title="Hide this entire section from Performance Mode">DELETE SECTION</button>
+      </article>
+
+      <!-- Scroll-depth panel: subtle parallax on scroll -->
+      <article class="spatial-panel sp-scroll-panel bsmnt-enter bsmnt-inview" data-layout="split" data-hover="depth" data-size="full" data-align="left" data-layer="background">
+        <span class="sp-label-tag">PRODUCTION OVERVIEW</span>
+        <p class="sp-body" style="margin-top:10px">Five production disciplines — sound, lighting, visuals, stage and backline — each linked to the 3D venue. Use the FOH focus button or lighting control to jump directly to the relevant equipment in the walkthrough.</p>
+      </article>
+
     </div>
   <div class="site-content-grid performance-custom-grid bsmnt-layout-stack stack-deck image-style-mono image-ratio-landscape" data-page-section="production" data-hover-mode="cursor" data-image-style="mono" data-image-ratio="landscape" style="--bsmnt-stack-offset: 10px; --bsmnt-card-gap: 18px;"></div></section>
 
@@ -15974,6 +16340,79 @@ function setSitePreviewState(on){
   if(inlineEditing){initInlinePageTextEditor?.();applyPageInlineEditsToDom?.()}
   renderHotspotZones?.();updateHotspotOverlayVisibility?.()
 }
+
+/* Spatial Panel System — cursor-follow, tilt, scroll-depth interactions */
+(function(){
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const isTouch=window.matchMedia('(hover:none) and (pointer:coarse)').matches;
+
+  function initSpatialPanels(){
+    if(reduceMotion||isTouch)return;
+    const panels=document.querySelectorAll('.spatial-panel');
+    panels.forEach(panel=>{
+      const hover=panel.dataset.hover;
+      if(hover==='tilt'||hover==='cursor-follow'){
+        panel.addEventListener('pointermove',e=>{
+          const r=panel.getBoundingClientRect();
+          const px=(e.clientX-r.left)/r.width-0.5;
+          const py=(e.clientY-r.top)/r.height-0.5;
+          panel.style.setProperty('--sp-tilt-x',(py*-8)+'deg');
+          panel.style.setProperty('--sp-tilt-y',(px*8)+'deg');
+          if(hover==='cursor-follow'){
+            panel.style.setProperty('--sp-cursor-x',String(px));
+            panel.style.setProperty('--sp-cursor-y',String(py));
+          }
+        });
+        panel.addEventListener('pointerleave',()=>{
+          panel.style.setProperty('--sp-tilt-x','0deg');
+          panel.style.setProperty('--sp-tilt-y','0deg');
+          panel.style.setProperty('--sp-cursor-x','0');
+          panel.style.setProperty('--sp-cursor-y','0');
+        });
+      }
+      if(hover==='image-pan'){
+        panel.addEventListener('pointermove',e=>{
+          const r=panel.getBoundingClientRect();
+          panel.style.setProperty('--sp-cursor-x',String((e.clientX-r.left)/r.width-0.5));
+          panel.style.setProperty('--sp-cursor-y',String((e.clientY-r.top)/r.height-0.5));
+        });
+        panel.addEventListener('pointerleave',()=>{
+          panel.style.setProperty('--sp-cursor-x','0');
+          panel.style.setProperty('--sp-cursor-y','0');
+        });
+      }
+    });
+
+    /* Scroll-depth: background panels drift slightly on scroll */
+    const scrollPanels=document.querySelectorAll('.sp-scroll-panel[data-layer="background"]');
+    if(scrollPanels.length){
+      let ticking=false;
+      window.addEventListener('scroll',()=>{
+        if(!ticking){
+          requestAnimationFrame(()=>{
+            const y=window.scrollY||0;
+            scrollPanels.forEach(p=>{
+              const r=p.getBoundingClientRect();
+              const vp=(r.top+r.height/2)/window.innerHeight;
+              const offset=(vp-0.5)*-14;
+              p.style.transform='perspective(900px) translateY('+offset+'px)';
+            });
+            ticking=false;
+          },{passive:true});
+          ticking=true;
+        }
+      },{passive:true});
+    }
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initSpatialPanels);
+  }else{
+    initSpatialPanels();
+  }
+  window.__initSpatialPanels=initSpatialPanels;
+})();
+
 function initPromoterSite(){
   if(sitePreviewReady)return;sitePreviewReady=true;
   const on=(id,ev,fn)=>{const e=document.getElementById(id);if(e)e.addEventListener(ev,fn)};
